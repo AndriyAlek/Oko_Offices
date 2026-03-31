@@ -76,8 +76,8 @@ tr:hover td{background:#f9fafb}
 /* Map */
 #map{width:100%;height:calc(100vh - 57px)}
 .tag{display:inline-block;padding:2px 8px;font-size:10px;font-weight:600;border-radius:10px;background:var(--acc-bg);color:var(--acc);margin-left:6px}
-</style></head><body><nav><span class="logo">🏢 Оренда офісу</span><a href="index.html" class="on">🏠 Всі об'єкти</a><a href="compare.html" class="">📊 Порівняння</a><a href="map.html" class="">🗺 Карта</a></nav><div class="wrap"><h1>Приміщення в оренду</h1><p class="sub">74 об'єктів · Київ</p><div class="filters"><button class="fb on" onclick="fd(this,'all')">Всі райони</button><button class="fb" onclick="fd(this,"\u0413\u043e\u043b\u043e\u0441\u0456\u0457\u0432\u0441\u044c\u043a\u0438\u0439")">Голосіївський <span style="opacity:.6">(5)</span></button><button class="fb" onclick="fd(this,"\u0414\u0430\u0440\u043d\u0438\u0446\u044c\u043a\u0438\u0439")">Дарницький <span style="opacity:.6">(6)</span></button><button class="fb" onclick="fd(this,"\u041e\u0431\u043e\u043b\u043e\u043d\u0441\u044c\u043a\u0438\u0439")">Оболонський <span style="opacity:.6">(1)</span></button><button class="fb" onclick="fd(this,"\u041f\u0435\u0447\u0435\u0440\u0441\u044c\u043a\u0438\u0439")">Печерський <span style="opacity:.6">(4)</span></button><button class="fb" onclick="fd(this,"\u041f\u043e\u0434\u0456\u043b\u044c\u0441\u044c\u043a\u0438\u0439")">Подільський <span style="opacity:.6">(2)</span></button><button class="fb" onclick="fd(this,"\u0421\u043e\u043b\u043e\u043c'\u044f\u043d\u0441\u044c\u043a\u0438\u0439")">Солом'янський <span style="opacity:.6">(11)</span></button><button class="fb" onclick="fd(this,"\u0428\u0435\u0432\u0447\u0435\u043d\u043a\u0456\u0432\u0441\u044c\u043a\u0438\u0439")">Шевченківський <span style="opacity:.6">(5)</span></button></div><div class="grid">
-<div class="card" data-d="Солом'янський">
+</style></head><body><nav><span class="logo">🏢 Оренда офісу</span><a href="index.html" class="on">🏠 Всі об'єкти</a><a href="compare.html" class="">📊 Порівняння</a><a href="map.html" class="">🗺 Карта</a></nav><div class="wrap"><h1>Приміщення в оренду</h1><p class="sub" id="obj-count">74 об'єктів · Київ</p><div style="margin-bottom:8px"><div style="font-size:11px;color:var(--mut);font-weight:600;margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em">Район</div><div class="filters"><button class="fb on" data-filter="district" data-val="all" onclick="applyFilter()">Всі райони</button><button class="fb" data-filter="district" data-val="Голосіївський" onclick="applyFilter()">Голосіївський <span style="opacity:.6">(5)</span></button><button class="fb" data-filter="district" data-val="Дарницький" onclick="applyFilter()">Дарницький <span style="opacity:.6">(6)</span></button><button class="fb" data-filter="district" data-val="Оболонський" onclick="applyFilter()">Оболонський <span style="opacity:.6">(1)</span></button><button class="fb" data-filter="district" data-val="Печерський" onclick="applyFilter()">Печерський <span style="opacity:.6">(4)</span></button><button class="fb" data-filter="district" data-val="Подільський" onclick="applyFilter()">Подільський <span style="opacity:.6">(2)</span></button><button class="fb" data-filter="district" data-val="Солом'янський" onclick="applyFilter()">Солом'янський <span style="opacity:.6">(11)</span></button><button class="fb" data-filter="district" data-val="Шевченківський" onclick="applyFilter()">Шевченківський <span style="opacity:.6">(5)</span></button></div></div><div style="margin-bottom:8px"><div style="font-size:11px;color:var(--mut);font-weight:600;margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em">Площа</div><div class="filters"><button class="fb on" data-filter="area" data-val="all"   onclick="applyFilter()">Будь-яка площа</button><button class="fb"    data-filter="area" data-val="small" onclick="applyFilter()">до 400 м²</button><button class="fb"    data-filter="area" data-val="mid"   onclick="applyFilter()">400–600 м²</button><button class="fb"    data-filter="area" data-val="big"   onclick="applyFilter()">600+ м²</button></div></div><div style="margin-bottom:20px"><div style="font-size:11px;color:var(--mut);font-weight:600;margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em">Сортування</div><div class="filters"><button class="fb on" data-filter="sort" data-val="num"        onclick="applyFilter()">За №</button><button class="fb"    data-filter="sort" data-val="area_asc"   onclick="applyFilter()">Площа ↑</button><button class="fb"    data-filter="sort" data-val="area_desc"  onclick="applyFilter()">Площа ↓</button><button class="fb"    data-filter="sort" data-val="price_asc"  onclick="applyFilter()">Ціна ↑</button><button class="fb"    data-filter="sort" data-val="price_desc" onclick="applyFilter()">Ціна ↓</button><button class="fb"    data-filter="sort" data-val="score_desc" onclick="applyFilter()">Рейтинг ↓</button></div></div><div class="grid" id="grid">
+<div class="card" data-d="Солом'янський" data-arange="mid" data-total="313500.0" data-score="2">
   <div class="cn">#1</div>
   <div class="cs">ул. Ивана Лепсе</div>
   <div class="cm">Солом'янський · Отрадний</div>
@@ -95,7 +95,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://proffice.com.ua/catalog/properties/p21375" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="Солом'янський">
+<div class="card" data-d="Солом'янський" data-arange="mid" data-total="414960.0" data-score="2">
   <div class="cn">#2</div>
   <div class="cs">ул.Любомира Гузара</div>
   <div class="cm">Солом'янський · Отрадний</div>
@@ -113,7 +113,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://proffice.com.ua/catalog/properties/p21852" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="Голосіївський">
+<div class="card" data-d="Голосіївський" data-arange="small" data-total="182000.0" data-score="0">
   <div class="cn">#3</div>
   <div class="cs">Васльковская 14</div>
   <div class="cm">Голосіївський · Голосіївська</div>
@@ -131,7 +131,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://proffice.com.ua/catalog/properties/p22069" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="Солом'янський">
+<div class="card" data-d="Солом'янський" data-arange="mid" data-total="470820.0" data-score="2">
   <div class="cn">#4</div>
   <div class="cs">ул.Георгия Кирпы<span class="tag">опен</span></div>
   <div class="cm">Солом'янський · Вокзальна / Центр</div>
@@ -149,7 +149,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://proffice.com.ua/catalog/properties/p21769" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="Шевченківський">
+<div class="card" data-d="Шевченківський" data-arange="mid" data-total="398244.0" data-score="2">
   <div class="cn">#5</div>
   <div class="cs">ул. Жилянская<span class="tag">опен</span></div>
   <div class="cm">Шевченківський · Центр</div>
@@ -167,7 +167,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://proffice.com.ua/catalog/properties/p20902" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="Шевченківський">
+<div class="card" data-d="Шевченківський" data-arange="mid" data-total="289275.0" data-score="2">
   <div class="cn">#6</div>
   <div class="cs">ул. Жилянская<span class="tag">опен</span></div>
   <div class="cm">Шевченківський · Центр</div>
@@ -185,7 +185,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://proffice.com.ua/catalog/properties/p19979" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="Шевченківський">
+<div class="card" data-d="Шевченківський" data-arange="mid" data-total="425000.0" data-score="2">
   <div class="cn">#7</div>
   <div class="cs">Ул. Жилянская<span class="tag">опен</span></div>
   <div class="cm">Шевченківський · Центр</div>
@@ -203,7 +203,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://crm-capital.realtsoft.net/estate-91267-f53252a5c95a345d9a491f36e5a071ee.html?t=zOcc4B" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="Подільський">
+<div class="card" data-d="Подільський" data-arange="mid" data-total="0" data-score="2">
   <div class="cn">#8</div>
   <div class="cs">ул. Перемишильская 2</div>
   <div class="cm">Подільський · Поділ</div>
@@ -221,7 +221,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://100realty.ua/uk/object/376528027/print" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="Печерський">
+<div class="card" data-d="Печерський" data-arange="mid" data-total="428450.0" data-score="2">
   <div class="cn">#9</div>
   <div class="cs">Кутузова</div>
   <div class="cm">Печерський · Печерська</div>
@@ -239,7 +239,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://100realty.ua/uk/object/376525801/print" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="">
+<div class="card" data-d="" data-arange="mid" data-total="236930.0" data-score="11">
   <div class="cn">#10</div>
   <div class="cs">прос.Берестейский 67<span class="tag">опен</span></div>
   <div class="cm"> · Святошино</div>
@@ -257,7 +257,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://100realty.ua/uk/object/376526433/print" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="Шевченківський">
+<div class="card" data-d="Шевченківський" data-arange="mid" data-total="0" data-score="2">
   <div class="cn">#11</div>
   <div class="cs">Круглоуниверситетская</div>
   <div class="cm">Шевченківський · Центр</div>
@@ -275,7 +275,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://100realty.ua/uk/object/16885938" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="Голосіївський">
+<div class="card" data-d="Голосіївський" data-arange="small" data-total="0" data-score="0">
   <div class="cn">#12</div>
   <div class="cs">Проспект Лобановского</div>
   <div class="cm">Голосіївський · Деміївка</div>
@@ -293,7 +293,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://100realty.ua/uk/object/100822718" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="Печерський">
+<div class="card" data-d="Печерський" data-arange="small" data-total="0" data-score="0">
   <div class="cn">#13</div>
   <div class="cs">Горько 7</div>
   <div class="cm">Печерський · Льва Толстого</div>
@@ -311,7 +311,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://100realty.ua/uk/object/376526285" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="Голосіївський">
+<div class="card" data-d="Голосіївський" data-arange="mid" data-total="182000.0" data-score="9">
   <div class="cn">#14</div>
   <div class="cs">ул Васильковская 14<span class="tag">ремонт</span></div>
   <div class="cm">Голосіївський · Голосіївська</div>
@@ -329,7 +329,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://100realty.ua/uk/object/376525488" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="Голосіївський">
+<div class="card" data-d="Голосіївський" data-arange="mid" data-total="389298.0" data-score="5">
   <div class="cn">#15</div>
   <div class="cs">ул. Академика Книшова<span class="tag">опен</span></div>
   <div class="cm">Голосіївський · Васильківська</div>
@@ -347,7 +347,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://100realty.ua/uk/object/285255063" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="Оболонський">
+<div class="card" data-d="Оболонський" data-arange="mid" data-total="181860.0" data-score="2">
   <div class="cn">#16</div>
   <div class="cs">Прос Ст.Бандеры</div>
   <div class="cm">Оболонський · Оболонь</div>
@@ -365,7 +365,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://100realty.ua/uk/object/376443382" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="Подільський">
+<div class="card" data-d="Подільський" data-arange="mid" data-total="350460.0" data-score="2">
   <div class="cn">#17</div>
   <div class="cs">Нижний Вал<span class="tag">опен</span></div>
   <div class="cm">Подільський · Поділ</div>
@@ -383,7 +383,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://100realty.ua/uk/object/376443413" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="Солом'янський">
+<div class="card" data-d="Солом'янський" data-arange="mid" data-total="399840.0" data-score="2">
   <div class="cn">#18</div>
   <div class="cs">Прос. Берестейский 53<span class="tag">опен</span></div>
   <div class="cm">Солом'янський · Берестейська / Шулявка</div>
@@ -401,7 +401,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://100realty.ua/uk/object/376503122" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="Солом'янський">
+<div class="card" data-d="Солом'янський" data-arange="mid" data-total="154000.0" data-score="2">
   <div class="cn">#19</div>
   <div class="cs">Прос. Берестейский</div>
   <div class="cm">Солом'янський · Берестейська / Шулявка</div>
@@ -419,7 +419,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://100realty.ua/uk/object/184578387" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="Солом'янський">
+<div class="card" data-d="Солом'янський" data-arange="small" data-total="0" data-score="0">
   <div class="cn">#20</div>
   <div class="cs">аперно слободская</div>
   <div class="cm">Солом'янський · Берестейська / Шулявка</div>
@@ -437,7 +437,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://realt.ua/realty-office-rent-kyiv-saperno-slobidska-street-1079.html" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="Солом'янський">
+<div class="card" data-d="Солом'янський" data-arange="mid" data-total="450000.0" data-score="2">
   <div class="cn">#21</div>
   <div class="cs">Прос. Берестейский 42А</div>
   <div class="cm">Солом'янський · Берестейська / Шулявка</div>
@@ -455,7 +455,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://realt.ua/realty-retail-rent-kyiv-beresteiska-avenue-2040.html" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="Солом'янський">
+<div class="card" data-d="Солом'янський" data-arange="mid" data-total="461145.0" data-score="2">
   <div class="cn">#22</div>
   <div class="cs">Семи Прахових 58\10<span class="tag">опен</span></div>
   <div class="cm">Солом'янський · Вокзальна / Центр</div>
@@ -473,7 +473,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://dom.ria.com/uk/realty-dolgosrochnaya-arenda-ofisnye-pomescheniya-kiev-pankovschina-semi-prahovyh-gaydara-ulitsa-33843117.html?r_audience=smo&r_source=whatsapp&r_medium=share&r_campaign=ads_secondary" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="Дарницький">
+<div class="card" data-d="Дарницький" data-arange="small" data-total="400000.0" data-score="8">
   <div class="cn">#23</div>
   <div class="cs">Ревуцкого 35 А<span class="tag">опен</span></div>
   <div class="cm">Дарницький · Позняки</div>
@@ -491,7 +491,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://dom.ria.com/uk/realty-dolgosrochnaya-arenda-kommercheskoe-pomeschenie-kiev-harkovskiy-massiv-revutskogo-ulitsa-33537069.html?r_audience=smo&r_source=whatsapp&r_medium=share&r_campaign=ads_secondary" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="Солом'янський">
+<div class="card" data-d="Солом'янський" data-arange="mid" data-total="346400.0" data-score="2">
   <div class="cn">#24</div>
   <div class="cs">Миколи Голего 7</div>
   <div class="cm">Солом'янський · Отрадний</div>
@@ -509,7 +509,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://dom.ria.com/uk/realty-dolgosrochnaya-arenda-kommercheskoe-pomeschenie-kiev-karavaevy-dachi-nikolaya-galego-ulitsa-33770534.html?r_audience=smo&r_source=whatsapp&r_medium=share&r_campaign=ads_secondary" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="Солом'янський">
+<div class="card" data-d="Солом'янський" data-arange="mid" data-total="360343.0" data-score="2">
   <div class="cn">#25</div>
   <div class="cs">прос.Л.Гузара 15</div>
   <div class="cm">Солом'янський · Отрадний</div>
@@ -527,7 +527,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://dom.ria.com/uk/realty-dolgosrochnaya-arenda-kommercheskoe-pomeschenie-kiev-otradnyy-lyubomira-guzara-prospekt-31606224.html?r_audience=smo&r_source=whatsapp&r_medium=share&r_campaign=ads_secondary" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="Дарницький">
+<div class="card" data-d="Дарницький" data-arange="big" data-total="188700.0" data-score="8">
   <div class="cn">#26</div>
   <div class="cs">м.славутич<span class="tag">опен</span></div>
   <div class="cm">Дарницький</div>
@@ -545,7 +545,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://www.olx.ua/d/uk/obyavlenie/proponutsya-v-orendu-primschennya-na-osokorkah-vd-vlasnika-IDV2qlu.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="Голосіївський">
+<div class="card" data-d="Голосіївський" data-arange="mid" data-total="345361.0" data-score="2">
   <div class="cn">#27</div>
   <div class="cs">пере.Охтырский 7<span class="tag">опен</span></div>
   <div class="cm">Голосіївський · Васильківська</div>
@@ -563,7 +563,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://dom.ria.com/uk/realty-dolgosrochnaya-arenda-ofisnye-pomescheniya-kiev-goloseev-ohtyrskiy-pereulok-32735641.html?r_audience=smo&r_source=whatsapp&r_medium=share&r_campaign=ads_secondary" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="Солом'янський">
+<div class="card" data-d="Солом'янський" data-arange="small" data-total="476300.0" data-score="0">
   <div class="cn">#28</div>
   <div class="cs">Жиллянская</div>
   <div class="cm">Солом'янський · Вокзальна / Центр</div>
@@ -581,7 +581,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://dom.ria.com/uk/realty-dolgosrochnaya-arenda-ofisnye-pomescheniya-kiev-shevchenkovskiy-jilyanskaya-ulitsa-33919901.html?r_audience=smo&r_source=whatsapp&r_medium=share&r_campaign=ads_secondary" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="Печерський">
+<div class="card" data-d="Печерський" data-arange="mid" data-total="0" data-score="2">
   <div class="cn">#29</div>
   <div class="cs">Антоновича<span class="tag">опен</span></div>
   <div class="cm">Печерський · Палац Україна</div>
@@ -599,7 +599,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://parklane.ua/uk/object/285258139" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="">
+<div class="card" data-d="" data-arange="big" data-total="0" data-score="13">
   <div class="cn">#30</div>
   <div class="cs">Київ, вул.Старонаводницька 19, 21, 23.</div>
   <div class="cm"></div>
@@ -617,7 +617,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://www.olx.ua/d/uk/obyavlenie/orenda-ofsno-budvl-v-pecherskomu-rayon-vd-vlasnika-bez-koms-ID100pF5.html?search_reason=search%7Cpromoted" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="">
+<div class="card" data-d="" data-arange="mid" data-total="255000.0" data-score="14">
   <div class="cn">#31</div>
   <div class="cs">вул.Вітряні Гори,3<span class="tag">ремонт</span></div>
   <div class="cm"></div>
@@ -635,7 +635,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://www.olx.ua/d/uk/obyavlenie/bez-ofs-shou-rum-sklad-magazin-565m-kv-vtryan-gori-r-n-vnograd-IDZYk8p.html?search_reason=search%7Cpromoted" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="">
+<div class="card" data-d="" data-arange="big" data-total="17000.0" data-score="9">
   <div class="cn">#32</div>
   <div class="cs">Антоновича 74<span class="tag">ремонт</span></div>
   <div class="cm"></div>
@@ -653,7 +653,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://www.olx.ua/d/uk/obyavlenie/bez-orenda-stilnogo-ofsu-v-tsentr-700-m2-IDZTXEi.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="">
+<div class="card" data-d="" data-arange="big" data-total="7400.0" data-score="10">
   <div class="cn">#33</div>
   <div class="cs">ул. Старонаводницька, 6-Б<span class="tag">ремонт</span></div>
   <div class="cm"></div>
@@ -671,7 +671,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://www.olx.ua/d/uk/obyavlenie/740-m-u-samomu-serts-pecherska-bez-koms-IDY6VJu.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="Шевченківський">
+<div class="card" data-d="Шевченківський" data-arange="big" data-total="0" data-score="15">
   <div class="cn">#34</div>
   <div class="cs">вул. Січових Стрільців, 55В<span class="tag">емонт</span></div>
   <div class="cm">Шевченківський</div>
@@ -689,7 +689,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://www.olx.ua/d/uk/obyavlenie/orenda-okremo-roztashovanogo-ofsu-v-tsentr-kiva-771m2-IDZY3cj.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="Печерський">
+<div class="card" data-d="Печерський" data-arange="big" data-total="20000.0" data-score="8">
   <div class="cn">#35</div>
   <div class="cs">вул. Новоселицька<span class="tag">опен/ремонт</span></div>
   <div class="cm">Печерський</div>
@@ -707,7 +707,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://www.olx.ua/d/uk/obyavlenie/orenda-ofsu-722-m2-na-pechersku-zhk-renesans-vul-novoselitska-fasad-ID102roL.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="">
+<div class="card" data-d="" data-arange="big" data-total="0" data-score="7">
   <div class="cn">#36</div>
   <div class="cs">пров. Моторний<span class="tag">ремонт</span></div>
   <div class="cm"></div>
@@ -725,7 +725,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://www.olx.ua/d/uk/obyavlenie/orenda-primschennya-z-okremim-vhodom-golosvskiy-r-n-700-m2-IDYWdKk.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="">
+<div class="card" data-d="" data-arange="mid" data-total="485629.0" data-score="7">
   <div class="cn">#37</div>
   <div class="cs">прос.Берестейский 67<span class="tag">опен</span></div>
   <div class="cm"></div>
@@ -743,7 +743,7 @@ tr:hover td{background:#f9fafb}
     
   </div>
 </div>
-<div class="card" data-d="">
+<div class="card" data-d="" data-arange="small" data-total="0" data-score="0">
   <div class="cn">#38</div>
   <div class="cs">Днепровская набережная 15</div>
   <div class="cm"></div>
@@ -761,7 +761,7 @@ tr:hover td{background:#f9fafb}
     
   </div>
 </div>
-<div class="card" data-d="Дарницький">
+<div class="card" data-d="Дарницький" data-arange="mid" data-total="0" data-score="6">
   <div class="cn">#39</div>
   <div class="cs">проспект Павла Тичини 7</div>
   <div class="cm">Дарницький</div>
@@ -779,7 +779,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://www.olx.ua/d/uk/obyavlenie/zdatsya-v-orendu-primschenya-baru-550-kv-m-na-bereznyakah-IDZHXlc.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="Дарницький">
+<div class="card" data-d="Дарницький" data-arange="mid" data-total="300000.0" data-score="2">
   <div class="cn">#40</div>
   <div class="cs">наб.Днепровская 19</div>
   <div class="cm">Дарницький · Позняки</div>
@@ -797,7 +797,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://dom.ria.com/uk/realty-dolgosrochnaya-arenda-kommercheskoe-pomeschenie-kiev-poznyaki-dneprovskaya-naberejnaya-33445476.html?r_audience=smo&r_source=whatsapp&r_medium=share&r_campaign=ads_secondary" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="">
+<div class="card" data-d="" data-arange="small" data-total="0" data-score="0">
   <div class="cn">#41</div>
   <div class="cs">900м2 без ремонту ЖК Smart House метро Берестейська</div>
   <div class="cm"></div>
@@ -815,7 +815,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://www.olx.ua/d/uk/obyavlenie/orenda-fasad-rampa-900m2-bez-remontu-zhk-smart-house-metro-beresteyska-IDZujY3.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="Дарницький">
+<div class="card" data-d="Дарницький" data-arange="big" data-total="431200.0" data-score="12">
   <div class="cn">#42</div>
   <div class="cs">ул.Анны Ахматовой, 16<span class="tag">опен</span></div>
   <div class="cm">Дарницький</div>
@@ -833,7 +833,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://www.olx.ua/d/uk/obyavlenie/arenda-komercheskogo-pomescheniya-700-m-kv-s-svoey-zakrytoy-teritoriey-IDZXgU2.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="Дарницький">
+<div class="card" data-d="Дарницький" data-arange="mid" data-total="177200.0" data-score="8">
   <div class="cn">#43</div>
   <div class="cs">Харківське шосе 152<span class="tag">ремонт</span></div>
   <div class="cm">Дарницький</div>
@@ -851,7 +851,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://100realty.ua/uk/object/376525713" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="">
+<div class="card" data-d="" data-arange="big" data-total="292380.0" data-score="6">
   <div class="cn">#44</div>
   <div class="cs">м. Васильківська, весь поверх в Жк, але 2<span class="tag">опен</span></div>
   <div class="cm"></div>
@@ -869,7 +869,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://www.olx.ua/d/uk/obyavlenie/ofs-klnka-660-m2-metro-vasilkvska-vdng-golosvskiy-park-IDZVe4N.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="">
+<div class="card" data-d="" data-arange="big" data-total="825672.0" data-score="10">
   <div class="cn">#45</div>
   <div class="cs">Камʼянська вулиця<span class="tag">ремонт</span></div>
   <div class="cm"></div>
@@ -887,7 +887,7 @@ tr:hover td{background:#f9fafb}
     
   </div>
 </div>
-<div class="card" data-d="">
+<div class="card" data-d="" data-arange="mid" data-total="321253.0" data-score="9">
   <div class="cn">#46</div>
   <div class="cs">Харківське шосе 175</div>
   <div class="cm"></div>
@@ -905,7 +905,7 @@ tr:hover td{background:#f9fafb}
     
   </div>
 </div>
-<div class="card" data-d="">
+<div class="card" data-d="" data-arange="small" data-total="0" data-score="0">
   <div class="cn">#47</div>
   <div class="cs">Академіка Книшова, 6 корпус 2</div>
   <div class="cm"></div>
@@ -923,7 +923,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://proffice.com.ua/catalog/properties/p22227?proposal=2842" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="">
+<div class="card" data-d="" data-arange="small" data-total="0" data-score="0">
   <div class="cn">#48</div>
   <div class="cs">Охтирський пров</div>
   <div class="cm"></div>
@@ -941,7 +941,7 @@ tr:hover td{background:#f9fafb}
     
   </div>
 </div>
-<div class="card" data-d="">
+<div class="card" data-d="" data-arange="small" data-total="0" data-score="0">
   <div class="cn">#49</div>
   <div class="cs">Деміївська, 27</div>
   <div class="cm"></div>
@@ -959,7 +959,7 @@ tr:hover td{background:#f9fafb}
     
   </div>
 </div>
-<div class="card" data-d="">
+<div class="card" data-d="" data-arange="big" data-total="1424192.0" data-score="11">
   <div class="cn">#50</div>
   <div class="cs">вул. Дніпровська наб., 23А<span class="tag">опен</span></div>
   <div class="cm"></div>
@@ -977,7 +977,7 @@ tr:hover td{background:#f9fafb}
     
   </div>
 </div>
-<div class="card" data-d="">
+<div class="card" data-d="" data-arange="mid" data-total="409758.8" data-score="9">
   <div class="cn">#51</div>
   <div class="cs">вул. Практична<span class="tag">опен</span></div>
   <div class="cm"></div>
@@ -995,7 +995,7 @@ tr:hover td{background:#f9fafb}
     
   </div>
 </div>
-<div class="card" data-d="">
+<div class="card" data-d="" data-arange="mid" data-total="172000.0" data-score="9">
   <div class="cn">#52</div>
   <div class="cs">Пилипа Орлика вул. Київ<span class="tag">опен</span></div>
   <div class="cm"></div>
@@ -1013,7 +1013,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://realt.ua/realty-office-rent-kyiv-pylypa-orlyka-street-3509.html" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="">
+<div class="card" data-d="" data-arange="mid" data-total="218000.0" data-score="9">
   <div class="cn">#53</div>
   <div class="cs">Євгена Сверстюка<span class="tag">ремонт</span></div>
   <div class="cm"></div>
@@ -1031,7 +1031,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://proffice.com.ua/catalog/properties/p17194" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="">
+<div class="card" data-d="" data-arange="mid" data-total="211500.0" data-score="6">
   <div class="cn">#54</div>
   <div class="cs">Володимира Сосюри</div>
   <div class="cm"></div>
@@ -1049,7 +1049,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://proffice.com.ua/catalog/properties/p22022" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="">
+<div class="card" data-d="" data-arange="mid" data-total="308688.0" data-score="4">
   <div class="cn">#55</div>
   <div class="cs">прос.Берестейский<span class="tag">ремонт</span></div>
   <div class="cm"></div>
@@ -1067,7 +1067,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://proffice.com.ua/catalog/properties/p18046" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="">
+<div class="card" data-d="" data-arange="small" data-total="0" data-score="0">
   <div class="cn">#56</div>
   <div class="cs">Нижній Вал</div>
   <div class="cm"></div>
@@ -1085,7 +1085,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://proffice.com.ua/catalog/properties/p21809" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="">
+<div class="card" data-d="" data-arange="small" data-total="0" data-score="0">
   <div class="cn">#57</div>
   <div class="cs">біля м. позняки але 4 поверх, проте варіант непоганий</div>
   <div class="cm"></div>
@@ -1103,7 +1103,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://www.aviso.ua/kyiv/zdam-dovhostrokovo-prymishchennia-vilnoho-pryznachennia-kyiv-darnytskyi-oleksandra-myshuhy-vul-1/17278029/" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="">
+<div class="card" data-d="" data-arange="small" data-total="0" data-score="0">
   <div class="cn">#58</div>
   <div class="cs">https://www.olx.ua/d/uk/obyavlenie/metro-olmpyska-ofs-540-m2</div>
   <div class="cm"></div>
@@ -1121,7 +1121,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://www.olx.ua/d/uk/obyavlenie/metro-olmpyska-ofs-540-m2-bez-tsentr-pl-ukranskih-gerov-IDZVzVp.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="">
+<div class="card" data-d="" data-arange="small" data-total="0" data-score="0">
   <div class="cn">#59</div>
   <div class="cs">https://www.olx.ua/d/uk/obyavlenie/orenda-storichniy-tsentr-</div>
   <div class="cm"></div>
@@ -1139,7 +1139,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://www.olx.ua/d/uk/obyavlenie/orenda-storichniy-tsentr-rininska-680m2-okremiy-vhd-IDZVK1N.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="">
+<div class="card" data-d="" data-arange="small" data-total="0" data-score="0">
   <div class="cn">#60</div>
   <div class="cs">https://www.olx.ua/d/uk/obyavlenie/bez-orenda-ofsno-budvl-z-</div>
   <div class="cm"></div>
@@ -1157,7 +1157,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://www.olx.ua/d/uk/obyavlenie/bez-orenda-ofsno-budvl-z-parkngom-na-pechersku-1550-kv-m-IDZZAoa.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="">
+<div class="card" data-d="" data-arange="small" data-total="0" data-score="0">
   <div class="cn">#61</div>
   <div class="cs">https://www.olx.ua/d/uk/obyavlenie/orenda-ofsno-budvl-750-kv</div>
   <div class="cm"></div>
@@ -1175,7 +1175,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://www.olx.ua/d/uk/obyavlenie/orenda-ofsno-budvl-750-kv-m-vul-zhilyanska-72a-metro-olmpyska-IDZbtcm.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="">
+<div class="card" data-d="" data-arange="small" data-total="0" data-score="0">
   <div class="cn">#62</div>
   <div class="cs">цікаво але дорого</div>
   <div class="cm"></div>
@@ -1193,7 +1193,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://www.olx.ua/d/uk/obyavlenie/sdam-okremu-budvlyu-z-zakrioyu-tertoryu-shevchenkvskiy-r-n-IDXjQlM.html?search_reason=search%7Cpromoted" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="">
+<div class="card" data-d="" data-arange="small" data-total="0" data-score="0">
   <div class="cn">#63</div>
   <div class="cs">Сирець</div>
   <div class="cm"></div>
@@ -1211,7 +1211,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://www.olx.ua/d/uk/obyavlenie/orenda-fasadnogo-ofsnogo-primschennya-kiv-sirets-515m2-shevchenkvskiy-IDZZe3R.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="">
+<div class="card" data-d="" data-arange="small" data-total="0" data-score="0">
   <div class="cn">#64</div>
   <div class="cs">печерск</div>
   <div class="cm"></div>
@@ -1229,7 +1229,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://www.olx.ua/d/uk/obyavlenie/orenda-pechersk-400m2-ofs-z-remontom-IDZUNyE.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="">
+<div class="card" data-d="" data-arange="small" data-total="0" data-score="0">
   <div class="cn">#65</div>
   <div class="cs">м. Універсиет</div>
   <div class="cm"></div>
@@ -1247,7 +1247,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://www.olx.ua/d/uk/obyavlenie/orenda-ofsu-1300-m2-m-unversitet-IDZUjGP.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="">
+<div class="card" data-d="" data-arange="small" data-total="0" data-score="0">
   <div class="cn">#66</div>
   <div class="cs">кардачі. магазин Бріллє</div>
   <div class="cm"></div>
@@ -1265,7 +1265,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://www.olx.ua/d/uk/obyavlenie/orenda-primschennya-chokolovskiy-bulvar-1iy-poverh-IDRxkTf.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="">
+<div class="card" data-d="" data-arange="small" data-total="0" data-score="0">
   <div class="cn">#67</div>
   <div class="cs">900м2 без ремонту ЖК Smart House метро Берестейська</div>
   <div class="cm"></div>
@@ -1283,7 +1283,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://www.olx.ua/d/uk/obyavlenie/orenda-fasad-rampa-900m2-bez-remontu-zhk-smart-house-metro-beresteyska-IDZujY3.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="">
+<div class="card" data-d="" data-arange="small" data-total="0" data-score="0">
   <div class="cn">#68</div>
   <div class="cs">м. Васильківська, весь поверх в Жк, але 2</div>
   <div class="cm"></div>
@@ -1301,7 +1301,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://www.olx.ua/d/uk/obyavlenie/ofs-klnka-660-m2-metro-vasilkvska-vdng-golosvskiy-park-IDZVe4N.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="">
+<div class="card" data-d="" data-arange="small" data-total="0" data-score="0">
   <div class="cn">#69</div>
   <div class="cs">Оболонь</div>
   <div class="cm"></div>
@@ -1319,7 +1319,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://www.olx.ua/d/uk/obyavlenie/orenda-530-kv-m-fasad-1y-poverh-obolonskiy-rayon-zhk-berezhanskiy-IDZZgGI.html?isPreviewActive=0&search_reason=search%7Corganic&sliderIndex=0" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="">
+<div class="card" data-d="" data-arange="small" data-total="0" data-score="0">
   <div class="cn">#70</div>
   <div class="cs">Конвальця, печерс. 4 поверх але окремий вхід</div>
   <div class="cm"></div>
@@ -1337,7 +1337,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://www.olx.ua/d/uk/obyavlenie/bez-arenda-pomescheniya-ofis-klinika-konovaltsa-32b-generator-IDZHUiI.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="">
+<div class="card" data-d="" data-arange="small" data-total="0" data-score="0">
   <div class="cn">#71</div>
   <div class="cs">Індустріальна</div>
   <div class="cm"></div>
@@ -1355,7 +1355,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://www.olx.ua/d/uk/obyavlenie/orenda-ofs-2-poverhi-710m2-ndustralniy-2-ukrittya-IDYdupN.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="">
+<div class="card" data-d="" data-arange="small" data-total="0" data-score="0">
   <div class="cn">#72</div>
   <div class="cs">Івана франка</div>
   <div class="cm"></div>
@@ -1373,7 +1373,7 @@ tr:hover td{background:#f9fafb}
     <a href="https://www.olx.ua/d/uk/obyavlenie/orenda-814m2-osz-fasad-ofs-franka-26-zolot-vorota-tsentr-parkomstsya-IDZAqlC.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
   </div>
 </div>
-<div class="card" data-d="">
+<div class="card" data-d="" data-arange="small" data-total="0" data-score="0">
   <div class="cn">#73</div>
   <div class="cs">большие окна</div>
   <div class="cm"></div>
@@ -1391,7 +1391,7 @@ tr:hover td{background:#f9fafb}
     
   </div>
 </div>
-<div class="card" data-d="">
+<div class="card" data-d="" data-arange="small" data-total="0" data-score="0">
   <div class="cn">#74</div>
   <div class="cs">бівшая клиника 2500 м</div>
   <div class="cm"></div>
@@ -1408,4 +1408,36 @@ tr:hover td{background:#f9fafb}
     <a href="objects/бівшая-клиника-2500-м-153dadd.html" class="btn bo">Детально →</a>
     
   </div>
-</div></div></div><script>function fd(b,v){document.querySelectorAll(".fb").forEach(x=>x.classList.remove("on"));b.classList.add("on");document.querySelectorAll(".card").forEach(c=>{c.classList.toggle("hidden",v!=="all"&&c.dataset.d!==v);});}</script><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script></body></html>
+</div></div></div><script>
+function applyFilter(){
+  var distVal=document.querySelector('[data-filter="district"].on')?.dataset.val||'all';
+  var areaVal=document.querySelector('[data-filter="area"].on')?.dataset.val||'all';
+  var sortVal=document.querySelector('[data-filter="sort"].on')?.dataset.val||'num';
+  var grid=document.getElementById('grid');
+  var cards=Array.from(grid.children);
+  cards.forEach(function(c){
+    var ok=(distVal==='all'||c.dataset.d===distVal)&&(areaVal==='all'||c.dataset.arange===areaVal);
+    c.classList.toggle('hidden',!ok);
+  });
+  var visible=cards.filter(function(c){return !c.classList.contains('hidden');});
+  if(sortVal!=='num'){
+    visible.sort(function(a,b){
+      if(sortVal==='area_asc')  return parseFloat(a.dataset.total||0)-parseFloat(b.dataset.total||0)||0;
+      if(sortVal==='area_desc') return parseFloat(b.dataset.total||0)-parseFloat(a.dataset.total||0)||0;
+      if(sortVal==='price_asc') return parseFloat(a.dataset.total||0)-parseFloat(b.dataset.total||0);
+      if(sortVal==='price_desc')return parseFloat(b.dataset.total||0)-parseFloat(a.dataset.total||0);
+      if(sortVal==='score_desc')return parseFloat(b.dataset.score||0)-parseFloat(a.dataset.score||0);
+      return 0;
+    });
+    visible.forEach(function(c){grid.appendChild(c);});
+  }
+  document.getElementById('obj-count').textContent=visible.length+' об\'єктів · Київ';
+}
+document.querySelectorAll('.fb').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    var f=this.dataset.filter;
+    document.querySelectorAll('.fb[data-filter="'+f+'"]').forEach(function(b){b.classList.remove('on');});
+    this.classList.add('on');
+  });
+});
+</script><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script></body></html>
