@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="uk"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Всі об'єкти · Оренда офісу</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/><style>
+:root{
+  --bg:#f8f9fc;--s:#ffffff;--b:#e5e7ef;--b2:#d1d5e0;
+  --acc:#2563eb;--acc2:#0ea5e9;--txt:#1a1d2e;--mut:#6b7280;
+  --good:#16a34a;--warn:#d97706;--bad:#dc2626;
+  --acc-bg:#eff6ff;--good-bg:#f0fdf4;--bad-bg:#fef2f2;
+}
+*{box-sizing:border-box;margin:0;padding:0}html,body{height:100%}
+body{background:var(--bg);color:var(--txt);font-family:system-ui,-apple-system,sans-serif;font-size:14px;line-height:1.5}
+a{color:var(--acc);text-decoration:none}a:hover{text-decoration:underline}
+nav{background:var(--s);border-bottom:1px solid var(--b);padding:12px 28px;display:flex;align-items:center;gap:6px;position:sticky;top:0;z-index:99;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.logo{font-weight:800;font-size:13px;color:var(--acc);margin-right:12px;letter-spacing:-.02em}
+nav a{font-size:13px;color:var(--mut);font-weight:500;padding:6px 12px;border-radius:6px}
+nav a:hover,nav a.on{background:var(--acc-bg);color:var(--acc);text-decoration:none}
+.wrap{max-width:1440px;margin:0 auto;padding:28px 24px}
+h1{font-size:20px;font-weight:800;margin-bottom:4px;letter-spacing:-.03em}
+.sub{color:var(--mut);font-size:13px;margin-bottom:22px}
+.filters{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap}
+.fb{padding:5px 13px;font-size:12px;font-weight:600;background:var(--s);border:1px solid var(--b);color:var(--mut);cursor:pointer;border-radius:20px;transition:all .15s}
+.fb.on,.fb:hover{border-color:var(--acc);color:var(--acc);background:var(--acc-bg)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.card{background:var(--s);border:1px solid var(--b);border-radius:10px;padding:18px;position:relative;transition:box-shadow .15s,border-color .15s;display:flex;flex-direction:column}
+.card:hover{box-shadow:0 4px 16px rgba(0,0,0,.08);border-color:var(--acc)}
+.card.hidden{display:none}
+.cn{position:absolute;top:12px;right:14px;font-size:10px;font-weight:700;color:var(--mut);background:var(--bg);padding:2px 7px;border-radius:10px;border:1px solid var(--b)}
+.cs{font-size:14px;font-weight:700;margin-bottom:3px;padding-right:42px;line-height:1.3}
+.cm{font-size:11px;color:var(--mut);margin-bottom:14px}
+.ps{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:14px}
+.p{background:var(--bg);padding:8px 10px;border-radius:6px;border:1px solid var(--b)}
+.pl{font-size:10px;color:var(--mut);margin-bottom:1px;font-weight:500}
+.pv{font-size:13px;font-weight:700}
+.br{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.bl{font-size:11px;color:var(--mut);width:110px;flex-shrink:0}
+.bw{flex:1;height:6px;background:var(--b);border-radius:3px;overflow:hidden}
+.bf{height:100%;border-radius:3px;transition:width .4s}
+.bv{font-size:11px;font-weight:700;width:40px;text-align:right;flex-shrink:0}
+.cf{display:flex;gap:8px;margin-top:auto;padding-top:14px;border-top:1px solid var(--b)}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:7px 14px;font-size:12px;font-weight:600;cursor:pointer;border-radius:6px;border:none;transition:all .15s;white-space:nowrap;text-decoration:none}
+.bo{background:var(--bg);border:1px solid var(--b);color:var(--mut)}.bo:hover{border-color:var(--acc);color:var(--acc);text-decoration:none}
+.ba{background:var(--acc);color:#fff}.ba:hover{background:#1d4ed8;text-decoration:none}
+/* Detail */
+.dh{background:var(--s);border:1px solid var(--b);border-radius:10px;padding:26px;margin-bottom:20px;border-left:4px solid var(--acc)}
+.dt{font-size:20px;font-weight:800;margin-bottom:3px;letter-spacing:-.03em}
+.ds{color:var(--mut);font-size:13px;margin-bottom:18px}
+.dp{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-bottom:18px}
+.db{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:680px){.db{grid-template-columns:1fr}}
+.sec{background:var(--s);border:1px solid var(--b);border-radius:10px;padding:20px}
+.st{font-size:11px;font-weight:700;color:var(--acc);letter-spacing:.05em;margin-bottom:14px;text-transform:uppercase}
+.ck{display:flex;flex-direction:column}
+.ci{display:flex;align-items:flex-start;gap:8px;font-size:13px;padding:7px 0;border-bottom:1px solid var(--b)}
+.ci:last-child{border-bottom:none}
+.cii{font-size:14px;width:20px;text-align:center;flex-shrink:0;margin-top:1px}
+.cy{color:var(--good)}.cn2{color:var(--bad)}
+.ci-text{flex:1}
+.ci-note{font-size:11px;color:var(--mut);margin-top:2px;background:var(--bg);padding:2px 7px;border-radius:4px;display:inline-block}
+.cmt{background:#fefce8;border-left:3px solid #eab308;padding:10px 14px;font-size:13px;margin-top:14px;border-radius:0 6px 6px 0}
+.back{display:inline-flex;align-items:center;gap:5px;font-size:13px;color:var(--mut);margin-bottom:18px;padding:6px 12px;border-radius:6px;border:1px solid var(--b);background:var(--s)}
+.back:hover{color:var(--acc);text-decoration:none;border-color:var(--acc)}
+/* Compare */
+.tw{overflow-x:auto;border:1px solid var(--b);border-radius:10px}
+table{width:100%;border-collapse:collapse;font-size:12px;min-width:600px}
+thead tr{border-bottom:2px solid var(--b)}
+th{padding:10px 12px;text-align:left;font-size:10px;color:var(--mut);font-weight:700;letter-spacing:.05em;white-space:nowrap;background:var(--bg)}
+td{padding:8px 12px;border-bottom:1px solid var(--b);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#f9fafb}
+.rl{color:var(--mut);font-size:11px;min-width:170px;font-weight:500}
+.tok{color:var(--good);font-weight:700}.tno{color:var(--bad)}
+.tn{font-size:11px;color:var(--acc);font-weight:700;max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sh td{font-size:10px;font-weight:700;color:var(--acc);letter-spacing:.06em;background:var(--acc-bg);padding:8px 12px;text-transform:uppercase}
+/* Map */
+#map{width:100%;height:calc(100vh - 57px)}
+.tag{display:inline-block;padding:2px 8px;font-size:10px;font-weight:600;border-radius:10px;background:var(--acc-bg);color:var(--acc);margin-left:6px}
+</style></head><body><nav><span class="logo">🏢 Оренда офісу</span><a href="index.html" class="on">🏠 Всі об'єкти</a><a href="compare.html" class="">📊 Порівняння</a><a href="map.html" class="">🗺 Карта</a></nav><div class="wrap"><h1>Приміщення в оренду</h1><p class="sub">74 об'єктів · Київ</p><div class="filters"><button class="fb on" onclick="fd(this,'all')">Всі райони</button><button class="fb" onclick="fd(this,"\u0413\u043e\u043b\u043e\u0441\u0456\u0457\u0432\u0441\u044c\u043a\u0438\u0439")">Голосіївський <span style="opacity:.6">(5)</span></button><button class="fb" onclick="fd(this,"\u0414\u0430\u0440\u043d\u0438\u0446\u044c\u043a\u0438\u0439")">Дарницький <span style="opacity:.6">(6)</span></button><button class="fb" onclick="fd(this,"\u041e\u0431\u043e\u043b\u043e\u043d\u0441\u044c\u043a\u0438\u0439")">Оболонський <span style="opacity:.6">(1)</span></button><button class="fb" onclick="fd(this,"\u041f\u0435\u0447\u0435\u0440\u0441\u044c\u043a\u0438\u0439")">Печерський <span style="opacity:.6">(4)</span></button><button class="fb" onclick="fd(this,"\u041f\u043e\u0434\u0456\u043b\u044c\u0441\u044c\u043a\u0438\u0439")">Подільський <span style="opacity:.6">(2)</span></button><button class="fb" onclick="fd(this,"\u0421\u043e\u043b\u043e\u043c'\u044f\u043d\u0441\u044c\u043a\u0438\u0439")">Солом'янський <span style="opacity:.6">(11)</span></button><button class="fb" onclick="fd(this,"\u0428\u0435\u0432\u0447\u0435\u043d\u043a\u0456\u0432\u0441\u044c\u043a\u0438\u0439")">Шевченківський <span style="opacity:.6">(5)</span></button></div><div class="grid">
+<div class="card" data-d="Солом'янський">
+  <div class="cn">#1</div>
+  <div class="cs">ул. Ивана Лепсе</div>
+  <div class="cm">Солом'янський · Отрадний</div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">570 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">313 500 $</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">1 пов.</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:9%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">1/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/ул-ивана-лепсе-2441267.html" class="btn bo">Детально →</a>
+    <a href="https://proffice.com.ua/catalog/properties/p21375" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="Солом'янський">
+  <div class="cn">#2</div>
+  <div class="cs">ул.Любомира Гузара</div>
+  <div class="cm">Солом'янський · Отрадний</div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">520 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">414 960 $</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">—</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:9%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">1/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/уллюбомира-гузара-279efcc.html" class="btn bo">Детально →</a>
+    <a href="https://proffice.com.ua/catalog/properties/p21852" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="Голосіївський">
+  <div class="cn">#3</div>
+  <div class="cs">Васльковская 14</div>
+  <div class="cm">Голосіївський · Голосіївська</div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">372 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">182 000 $</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">1/2 пов.</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/васльковская-14-b9807a1.html" class="btn bo">Детально →</a>
+    <a href="https://proffice.com.ua/catalog/properties/p22069" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="Солом'янський">
+  <div class="cn">#4</div>
+  <div class="cs">ул.Георгия Кирпы<span class="tag">опен</span></div>
+  <div class="cm">Солом'янський · Вокзальна / Центр</div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">520 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">470 820 $</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">1/2 пов.</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:9%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">1/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/улгеоргия-кирпы-f001f5a.html" class="btn bo">Детально →</a>
+    <a href="https://proffice.com.ua/catalog/properties/p21769" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="Шевченківський">
+  <div class="cn">#5</div>
+  <div class="cs">ул. Жилянская<span class="tag">опен</span></div>
+  <div class="cm">Шевченківський · Центр</div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">420 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">398 244 $</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">—</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:9%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">1/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/ул-жилянская-f711c5d.html" class="btn bo">Детально →</a>
+    <a href="https://proffice.com.ua/catalog/properties/p20902" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="Шевченківський">
+  <div class="cn">#6</div>
+  <div class="cs">ул. Жилянская<span class="tag">опен</span></div>
+  <div class="cm">Шевченківський · Центр</div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">551 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">289 275 $</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">1 пов.</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:9%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">1/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/ул-жилянская-fc003aa.html" class="btn bo">Детально →</a>
+    <a href="https://proffice.com.ua/catalog/properties/p19979" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="Шевченківський">
+  <div class="cn">#7</div>
+  <div class="cs">Ул. Жилянская<span class="tag">опен</span></div>
+  <div class="cm">Шевченківський · Центр</div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">500 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">425 000 $</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">—</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:9%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">1/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/ул-жилянская-bef306f.html" class="btn bo">Детально →</a>
+    <a href="https://crm-capital.realtsoft.net/estate-91267-f53252a5c95a345d9a491f36e5a071ee.html?t=zOcc4B" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="Подільський">
+  <div class="cn">#8</div>
+  <div class="cs">ул. Перемишильская 2</div>
+  <div class="cm">Подільський · Поділ</div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">500 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">—</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:9%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">1/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/ул-перемишильская-2-7868088.html" class="btn bo">Детально →</a>
+    <a href="https://100realty.ua/uk/object/376528027/print" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="Печерський">
+  <div class="cn">#9</div>
+  <div class="cs">Кутузова</div>
+  <div class="cm">Печерський · Печерська</div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">550 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">428 450 $</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">—</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:9%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">1/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/кутузова-d7bbe3d.html" class="btn bo">Детально →</a>
+    <a href="https://100realty.ua/uk/object/376525801/print" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="">
+  <div class="cn">#10</div>
+  <div class="cs">прос.Берестейский 67<span class="tag">опен</span></div>
+  <div class="cm"> · Святошино</div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">430 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">236 930 $</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">1/2 пов.</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:27%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">3/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:25%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">5/20</div></div>
+  <div style="font-size:11px;color:var(--mut);margin-top:8px;padding:6px 8px;background:var(--bg);border-radius:4px">💬 по планам был ресторан, окна в пол. летняя площакда 120м входит в аренду? Скольк…</div>
+  <div class="cf">
+    <a href="objects/просберестейский-67-213634f.html" class="btn bo">Детально →</a>
+    <a href="https://100realty.ua/uk/object/376526433/print" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="Шевченківський">
+  <div class="cn">#11</div>
+  <div class="cs">Круглоуниверситетская</div>
+  <div class="cm">Шевченківський · Центр</div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">449 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">—</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:9%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">1/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/круглоуниверситетская-395164b.html" class="btn bo">Детально →</a>
+    <a href="https://100realty.ua/uk/object/16885938" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="Голосіївський">
+  <div class="cn">#12</div>
+  <div class="cs">Проспект Лобановского</div>
+  <div class="cm">Голосіївський · Деміївка</div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">300 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">—</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/проспект-лобановского-bd07505.html" class="btn bo">Детально →</a>
+    <a href="https://100realty.ua/uk/object/100822718" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="Печерський">
+  <div class="cn">#13</div>
+  <div class="cs">Горько 7</div>
+  <div class="cm">Печерський · Льва Толстого</div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">—</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/горько-7-d76effc.html" class="btn bo">Детально →</a>
+    <a href="https://100realty.ua/uk/object/376526285" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="Голосіївський">
+  <div class="cn">#14</div>
+  <div class="cs">ул Васильковская 14<span class="tag">ремонт</span></div>
+  <div class="cm">Голосіївський · Голосіївська</div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">400 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">182 000 $</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">1/2 пов.</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:18%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">2/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:25%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">5/20</div></div>
+  <div style="font-size:11px;color:var(--mut);margin-top:8px;padding:6px 8px;background:var(--bg);border-radius:4px">💬 2ъ этажное здание находится на територии офисного центра</div>
+  <div class="cf">
+    <a href="objects/ул-васильковская-14-6f4eecc.html" class="btn bo">Детально →</a>
+    <a href="https://100realty.ua/uk/object/376525488" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="Голосіївський">
+  <div class="cn">#15</div>
+  <div class="cs">ул. Академика Книшова<span class="tag">опен</span></div>
+  <div class="cm">Голосіївський · Васильківська</div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">483 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">389 298 $</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">1/3 пов.</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:9%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">1/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:15%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">3/20</div></div>
+  <div style="font-size:11px;color:var(--mut);margin-top:8px;padding:6px 8px;background:var(--bg);border-radius:4px">💬 подходит под представительство при определеных условиях возможен шоу рум (будет …</div>
+  <div class="cf">
+    <a href="objects/ул-академика-книшова-e2dc5bd.html" class="btn bo">Детально →</a>
+    <a href="https://100realty.ua/uk/object/285255063" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="Оболонський">
+  <div class="cn">#16</div>
+  <div class="cs">Прос Ст.Бандеры</div>
+  <div class="cm">Оболонський · Оболонь</div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">420 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">181 860 $</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">?/? пов.</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:9%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">1/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/прос-стбандеры-8a2bb11.html" class="btn bo">Детально →</a>
+    <a href="https://100realty.ua/uk/object/376443382" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="Подільський">
+  <div class="cn">#17</div>
+  <div class="cs">Нижний Вал<span class="tag">опен</span></div>
+  <div class="cm">Подільський · Поділ</div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">540 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">350 460 $</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">1/1 пов.</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:9%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">1/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/нижний-вал-ececd5c.html" class="btn bo">Детально →</a>
+    <a href="https://100realty.ua/uk/object/376443413" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="Солом'янський">
+  <div class="cn">#18</div>
+  <div class="cs">Прос. Берестейский 53<span class="tag">опен</span></div>
+  <div class="cm">Солом'янський · Берестейська / Шулявка</div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">420 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">399 840 $</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">?/? пов.</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:9%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">1/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/прос-берестейский-53-d29d150.html" class="btn bo">Детально →</a>
+    <a href="https://100realty.ua/uk/object/376503122" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="Солом'янський">
+  <div class="cn">#19</div>
+  <div class="cs">Прос. Берестейский</div>
+  <div class="cm">Солом'янський · Берестейська / Шулявка</div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">440 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">154 000 $</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">1/3 пов.</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:9%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">1/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/прос-берестейский-60cfac9.html" class="btn bo">Детально →</a>
+    <a href="https://100realty.ua/uk/object/184578387" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="Солом'янський">
+  <div class="cn">#20</div>
+  <div class="cs">аперно слободская</div>
+  <div class="cm">Солом'янський · Берестейська / Шулявка</div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">260 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">—</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/аперно-слободская-27d26b3.html" class="btn bo">Детально →</a>
+    <a href="https://realt.ua/realty-office-rent-kyiv-saperno-slobidska-street-1079.html" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="Солом'янський">
+  <div class="cn">#21</div>
+  <div class="cs">Прос. Берестейский 42А</div>
+  <div class="cm">Солом'янський · Берестейська / Шулявка</div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">530 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">450 000 $</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">1 пов.</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:9%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">1/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/прос-берестейский-42а-5421e00.html" class="btn bo">Детально →</a>
+    <a href="https://realt.ua/realty-retail-rent-kyiv-beresteiska-avenue-2040.html" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="Солом'янський">
+  <div class="cn">#22</div>
+  <div class="cs">Семи Прахових 58\10<span class="tag">опен</span></div>
+  <div class="cm">Солом'янський · Вокзальна / Центр</div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">425 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">461 145 $</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">1 пов.</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:9%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">1/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/семи-прахових-5810-cf07a8d.html" class="btn bo">Детально →</a>
+    <a href="https://dom.ria.com/uk/realty-dolgosrochnaya-arenda-ofisnye-pomescheniya-kiev-pankovschina-semi-prahovyh-gaydara-ulitsa-33843117.html?r_audience=smo&r_source=whatsapp&r_medium=share&r_campaign=ads_secondary" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="Дарницький">
+  <div class="cn">#23</div>
+  <div class="cs">Ревуцкого 35 А<span class="tag">опен</span></div>
+  <div class="cm">Дарницький · Позняки</div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">390 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">400 000 $</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">1/3 пов.</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:9%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">1/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:30%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">6/20</div></div>
+  <div style="font-size:11px;color:var(--mut);margin-top:8px;padding:6px 8px;background:var(--bg);border-radius:4px">💬 в общей площади цокольный этаж</div>
+  <div class="cf">
+    <a href="objects/ревуцкого-35-а-1915857.html" class="btn bo">Детально →</a>
+    <a href="https://dom.ria.com/uk/realty-dolgosrochnaya-arenda-kommercheskoe-pomeschenie-kiev-harkovskiy-massiv-revutskogo-ulitsa-33537069.html?r_audience=smo&r_source=whatsapp&r_medium=share&r_campaign=ads_secondary" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="Солом'янський">
+  <div class="cn">#24</div>
+  <div class="cs">Миколи Голего 7</div>
+  <div class="cm">Солом'янський · Отрадний</div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">537 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">346 400 $</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">1/2 пов.</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:9%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">1/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/миколи-голего-7-f5f3b54.html" class="btn bo">Детально →</a>
+    <a href="https://dom.ria.com/uk/realty-dolgosrochnaya-arenda-kommercheskoe-pomeschenie-kiev-karavaevy-dachi-nikolaya-galego-ulitsa-33770534.html?r_audience=smo&r_source=whatsapp&r_medium=share&r_campaign=ads_secondary" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="Солом'янський">
+  <div class="cn">#25</div>
+  <div class="cs">прос.Л.Гузара 15</div>
+  <div class="cm">Солом'янський · Отрадний</div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">438 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">360 343 $</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">1 пов.</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:9%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">1/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/прослгузара-15-456d0ef.html" class="btn bo">Детально →</a>
+    <a href="https://dom.ria.com/uk/realty-dolgosrochnaya-arenda-kommercheskoe-pomeschenie-kiev-otradnyy-lyubomira-guzara-prospekt-31606224.html?r_audience=smo&r_source=whatsapp&r_medium=share&r_campaign=ads_secondary" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="Дарницький">
+  <div class="cn">#26</div>
+  <div class="cs">м.славутич<span class="tag">опен</span></div>
+  <div class="cm">Дарницький</div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">650 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">188 700 $</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">1/2 пов.</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:27%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">3/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:10%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">2/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/мславутич-1330208.html" class="btn bo">Детально →</a>
+    <a href="https://www.olx.ua/d/uk/obyavlenie/proponutsya-v-orendu-primschennya-na-osokorkah-vd-vlasnika-IDV2qlu.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="Голосіївський">
+  <div class="cn">#27</div>
+  <div class="cs">пере.Охтырский 7<span class="tag">опен</span></div>
+  <div class="cm">Голосіївський · Васильківська</div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">436 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">345 361 $</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">1 пов.</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:9%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">1/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/переохтырский-7-dbd216d.html" class="btn bo">Детально →</a>
+    <a href="https://dom.ria.com/uk/realty-dolgosrochnaya-arenda-ofisnye-pomescheniya-kiev-goloseev-ohtyrskiy-pereulok-32735641.html?r_audience=smo&r_source=whatsapp&r_medium=share&r_campaign=ads_secondary" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="Солом'янський">
+  <div class="cn">#28</div>
+  <div class="cs">Жиллянская</div>
+  <div class="cm">Солом'янський · Вокзальна / Центр</div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">369 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">476 300 $</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">1 пов.</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/жиллянская-d8e35d8.html" class="btn bo">Детально →</a>
+    <a href="https://dom.ria.com/uk/realty-dolgosrochnaya-arenda-ofisnye-pomescheniya-kiev-shevchenkovskiy-jilyanskaya-ulitsa-33919901.html?r_audience=smo&r_source=whatsapp&r_medium=share&r_campaign=ads_secondary" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="Печерський">
+  <div class="cn">#29</div>
+  <div class="cs">Антоновича<span class="tag">опен</span></div>
+  <div class="cm">Печерський · Палац Україна</div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">460 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">650$/м²</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">1/2 пов.</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:9%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">1/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/антоновича-eba07c5.html" class="btn bo">Детально →</a>
+    <a href="https://parklane.ua/uk/object/285258139" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="">
+  <div class="cn">#30</div>
+  <div class="cs">Київ, вул.Старонаводницька 19, 21, 23.</div>
+  <div class="cm"></div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">5016 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">10$/m2$/м²</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">всф будівля/4 пов.</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:45%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">5/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:15%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">3/20</div></div>
+  <div style="font-size:11px;color:var(--mut);margin-top:8px;padding:6px 8px;background:var(--bg);border-radius:4px">💬 не в зонах</div>
+  <div class="cf">
+    <a href="objects/київ-вулстаронаводницька-19-21-23-9e78aeb.html" class="btn bo">Детально →</a>
+    <a href="https://www.olx.ua/d/uk/obyavlenie/orenda-ofsno-budvl-v-pecherskomu-rayon-vd-vlasnika-bez-koms-ID100pF5.html?search_reason=search%7Cpromoted" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="">
+  <div class="cn">#31</div>
+  <div class="cs">вул.Вітряні Гори,3<span class="tag">ремонт</span></div>
+  <div class="cm"></div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">565 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">255 000 $</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">1/10 пов.</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:45%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">5/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:20%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">4/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/вулвітряні-гори3-6026f15.html" class="btn bo">Детально →</a>
+    <a href="https://www.olx.ua/d/uk/obyavlenie/bez-ofs-shou-rum-sklad-magazin-565m-kv-vtryan-gori-r-n-vnograd-IDZYk8p.html?search_reason=search%7Cpromoted" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="">
+  <div class="cn">#32</div>
+  <div class="cs">Антоновича 74<span class="tag">ремонт</span></div>
+  <div class="cm"></div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">680.4 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">17 000 $</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">2/багато пов.</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:27%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">3/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:15%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">3/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/антоновича-74-3f84deb.html" class="btn bo">Детально →</a>
+    <a href="https://www.olx.ua/d/uk/obyavlenie/bez-orenda-stilnogo-ofsu-v-tsentr-700-m2-IDZTXEi.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="">
+  <div class="cn">#33</div>
+  <div class="cs">ул. Старонаводницька, 6-Б<span class="tag">ремонт</span></div>
+  <div class="cm"></div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">740 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">7 400 $</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">1/2 пов.</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:36%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">4/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:10%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">2/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/ул-старонаводницька-6-б-9639b8b.html" class="btn bo">Детально →</a>
+    <a href="https://www.olx.ua/d/uk/obyavlenie/740-m-u-samomu-serts-pecherska-bez-koms-IDY6VJu.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="Шевченківський">
+  <div class="cn">#34</div>
+  <div class="cs">вул. Січових Стрільців, 55В<span class="tag">емонт</span></div>
+  <div class="cm">Шевченківський</div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">771 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">вся/3 пов.</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:45%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">5/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:25%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">5/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/вул-січових-стрільців-55в-a7da128.html" class="btn bo">Детально →</a>
+    <a href="https://www.olx.ua/d/uk/obyavlenie/orenda-okremo-roztashovanogo-ofsu-v-tsentr-kiva-771m2-IDZY3cj.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="Печерський">
+  <div class="cn">#35</div>
+  <div class="cs">вул. Новоселицька<span class="tag">опен/ремонт</span></div>
+  <div class="cm">Печерський</div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">722 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">20 000 $</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">вся/4 пов.</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:18%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">2/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:20%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">4/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/вул-новоселицька-3864aa1.html" class="btn bo">Детально →</a>
+    <a href="https://www.olx.ua/d/uk/obyavlenie/orenda-ofsu-722-m2-na-pechersku-zhk-renesans-vul-novoselitska-fasad-ID102roL.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="">
+  <div class="cn">#36</div>
+  <div class="cs">пров. Моторний<span class="tag">ремонт</span></div>
+  <div class="cm"></div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">700 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">6000у.е. $</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">1 пов.</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:27%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">3/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:5%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">1/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/пров-моторний-cfda7cd.html" class="btn bo">Детально →</a>
+    <a href="https://www.olx.ua/d/uk/obyavlenie/orenda-primschennya-z-okremim-vhodom-golosvskiy-r-n-700-m2-IDYWdKk.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="">
+  <div class="cn">#37</div>
+  <div class="cs">прос.Берестейский 67<span class="tag">опен</span></div>
+  <div class="cm"></div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">403 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">485 629 $</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">1/2 пов.</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:18%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">2/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:15%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">3/20</div></div>
+  <div style="font-size:11px;color:var(--mut);margin-top:8px;padding:6px 8px;background:var(--bg);border-radius:4px">💬 Отлично подойдет под детский садик, обучающий центр, медицинскую клинику...Зробл…</div>
+  <div class="cf">
+    <a href="objects/просберестейский-67-a907234.html" class="btn bo">Детально →</a>
+    
+  </div>
+</div>
+<div class="card" data-d="">
+  <div class="cn">#38</div>
+  <div class="cs">Днепровская набережная 15</div>
+  <div class="cm"></div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">—</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  <div style="font-size:11px;color:var(--mut);margin-top:8px;padding:6px 8px;background:var(--bg);border-radius:4px">💬 зараз школа чи дитячий садок</div>
+  <div class="cf">
+    <a href="objects/днепровская-набережная-15-0f4f796.html" class="btn bo">Детально →</a>
+    
+  </div>
+</div>
+<div class="card" data-d="Дарницький">
+  <div class="cn">#39</div>
+  <div class="cs">проспект Павла Тичини 7</div>
+  <div class="cm">Дарницький</div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">550 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">—</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:27%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">3/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/проспект-павла-тичини-7-a1111bd.html" class="btn bo">Детально →</a>
+    <a href="https://www.olx.ua/d/uk/obyavlenie/zdatsya-v-orendu-primschenya-baru-550-kv-m-na-bereznyakah-IDZHXlc.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="Дарницький">
+  <div class="cn">#40</div>
+  <div class="cs">наб.Днепровская 19</div>
+  <div class="cm">Дарницький · Позняки</div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">500 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">300 000 $</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">1/2 пов.</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:9%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">1/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  <div style="font-size:11px;color:var(--mut);margin-top:8px;padding:6px 8px;background:var(--bg);border-radius:4px">💬 а першому поверсі в багатоповерхівці</div>
+  <div class="cf">
+    <a href="objects/набднепровская-19-45134a1.html" class="btn bo">Детально →</a>
+    <a href="https://dom.ria.com/uk/realty-dolgosrochnaya-arenda-kommercheskoe-pomeschenie-kiev-poznyaki-dneprovskaya-naberejnaya-33445476.html?r_audience=smo&r_source=whatsapp&r_medium=share&r_campaign=ads_secondary" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="">
+  <div class="cn">#41</div>
+  <div class="cs">900м2 без ремонту ЖК Smart House метро Берестейська</div>
+  <div class="cm"></div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">—</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/900м2-без-ремонту-жк-smart-house-метро-б-a5b9ae9.html" class="btn bo">Детально →</a>
+    <a href="https://www.olx.ua/d/uk/obyavlenie/orenda-fasad-rampa-900m2-bez-remontu-zhk-smart-house-metro-beresteyska-IDZujY3.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="Дарницький">
+  <div class="cn">#42</div>
+  <div class="cs">ул.Анны Ахматовой, 16<span class="tag">опен</span></div>
+  <div class="cm">Дарницький</div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">700 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">616$/м²</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">431 200 $</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">1/10 пов.</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:36%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">4/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:20%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">4/20</div></div>
+  <div style="font-size:11px;color:var(--mut);margin-top:8px;padding:6px 8px;background:var(--bg);border-radius:4px">💬 Ідеально підійде для фітнес-клубу, медичного центру,</div>
+  <div class="cf">
+    <a href="objects/уланны-ахматовой-16-589b7c8.html" class="btn bo">Детально →</a>
+    <a href="https://www.olx.ua/d/uk/obyavlenie/arenda-komercheskogo-pomescheniya-700-m-kv-s-svoey-zakrytoy-teritoriey-IDZXgU2.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="Дарницький">
+  <div class="cn">#43</div>
+  <div class="cs">Харківське шосе 152<span class="tag">ремонт</span></div>
+  <div class="cm">Дарницький</div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">400 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">443$/м²</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">177 200 $</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">1/багатоповрхівка пов.</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:27%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">3/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:10%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">2/20</div></div>
+  <div style="font-size:11px;color:var(--mut);margin-top:8px;padding:6px 8px;background:var(--bg);border-radius:4px">💬 большие окна</div>
+  <div class="cf">
+    <a href="objects/харківське-шосе-152-166ed7d.html" class="btn bo">Детально →</a>
+    <a href="https://100realty.ua/uk/object/376525713" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="">
+  <div class="cn">#44</div>
+  <div class="cs">м. Васильківська, весь поверх в Жк, але 2<span class="tag">опен</span></div>
+  <div class="cm"></div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">660 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">443$/м²</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">292 380 $</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">2/ЖК пов.</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:9%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">1/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:20%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">4/20</div></div>
+  <div style="font-size:11px;color:var(--mut);margin-top:8px;padding:6px 8px;background:var(--bg);border-radius:4px">💬 бівшая клиника 2500 м</div>
+  <div class="cf">
+    <a href="objects/м-васильківська-весь-поверх-в-жк-але-2-02b08c7.html" class="btn bo">Детально →</a>
+    <a href="https://www.olx.ua/d/uk/obyavlenie/ofs-klnka-660-m2-metro-vasilkvska-vdng-golosvskiy-park-IDZVe4N.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="">
+  <div class="cn">#45</div>
+  <div class="cs">Камʼянська вулиця<span class="tag">ремонт</span></div>
+  <div class="cm"></div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">2500 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">825 672 $</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">1/3 пов.</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:18%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">2/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:30%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">6/20</div></div>
+  <div style="font-size:11px;color:var(--mut);margin-top:8px;padding:6px 8px;background:var(--bg);border-radius:4px">💬 офіс займає половину поверху</div>
+  <div class="cf">
+    <a href="objects/камʼянська-вулиця-3981e74.html" class="btn bo">Детально →</a>
+    
+  </div>
+</div>
+<div class="card" data-d="">
+  <div class="cn">#46</div>
+  <div class="cs">Харківське шосе 175</div>
+  <div class="cm"></div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">490 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">321 253 $</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">1/БЦ пов.</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:27%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">3/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:15%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">3/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/харківське-шосе-175-c44b577.html" class="btn bo">Детально →</a>
+    
+  </div>
+</div>
+<div class="card" data-d="">
+  <div class="cn">#47</div>
+  <div class="cs">Академіка Книшова, 6 корпус 2</div>
+  <div class="cm"></div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">—</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/академіка-книшова-6-корпус-2-11bbff3.html" class="btn bo">Детально →</a>
+    <a href="https://proffice.com.ua/catalog/properties/p22227?proposal=2842" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="">
+  <div class="cn">#48</div>
+  <div class="cs">Охтирський пров</div>
+  <div class="cm"></div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">—</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/охтирський-пров-71e732a.html" class="btn bo">Детально →</a>
+    
+  </div>
+</div>
+<div class="card" data-d="">
+  <div class="cn">#49</div>
+  <div class="cs">Деміївська, 27</div>
+  <div class="cm"></div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">—</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/деміївська-27-bfe04f7.html" class="btn bo">Детально →</a>
+    
+  </div>
+</div>
+<div class="card" data-d="">
+  <div class="cn">#50</div>
+  <div class="cs">вул. Дніпровська наб., 23А<span class="tag">опен</span></div>
+  <div class="cm"></div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">1904 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">748$/м²</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">1 424 192 $</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">1/5 пов.</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:27%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">3/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:25%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">5/20</div></div>
+  <div style="font-size:11px;color:var(--mut);margin-top:8px;padding:6px 8px;background:var(--bg);border-radius:4px">💬 пропонується два поверхи навпроти рівермолу</div>
+  <div class="cf">
+    <a href="objects/вул-дніпровська-наб-23а-b5fc02c.html" class="btn bo">Детально →</a>
+    
+  </div>
+</div>
+<div class="card" data-d="">
+  <div class="cn">#51</div>
+  <div class="cs">вул. Практична<span class="tag">опен</span></div>
+  <div class="cm"></div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">404.9 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">1012$/м²</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">409 759 $</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">1/4 пов.</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:27%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">3/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:15%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">3/20</div></div>
+  <div style="font-size:11px;color:var(--mut);margin-top:8px;padding:6px 8px;background:var(--bg);border-radius:4px">💬 ренда 1 поверху в 3 поверховій будівлі (виставленна на продаж)</div>
+  <div class="cf">
+    <a href="objects/вул-практична-01ae552.html" class="btn bo">Детально →</a>
+    
+  </div>
+</div>
+<div class="card" data-d="">
+  <div class="cn">#52</div>
+  <div class="cs">Пилипа Орлика вул. Київ<span class="tag">опен</span></div>
+  <div class="cm"></div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">430 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">172 000 $</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">1/2 пов.</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:27%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">3/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:15%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">3/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/пилипа-орлика-вул-київ-08c4f88.html" class="btn bo">Детально →</a>
+    <a href="https://realt.ua/realty-office-rent-kyiv-pylypa-orlyka-street-3509.html" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="">
+  <div class="cn">#53</div>
+  <div class="cs">Євгена Сверстюка<span class="tag">ремонт</span></div>
+  <div class="cm"></div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">485 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">380$/м²</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">218 000 $</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">1/3 пов.</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:18%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">2/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:25%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">5/20</div></div>
+  <div style="font-size:11px;color:var(--mut);margin-top:8px;padding:6px 8px;background:var(--bg);border-radius:4px">💬 полний опен спейс</div>
+  <div class="cf">
+    <a href="objects/євгена-сверстюка-22fd167.html" class="btn bo">Детально →</a>
+    <a href="https://proffice.com.ua/catalog/properties/p17194" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="">
+  <div class="cn">#54</div>
+  <div class="cs">Володимира Сосюри</div>
+  <div class="cm"></div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">470 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">450$/м²</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">211 500 $</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">1/6 пов.</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:18%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">2/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:10%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">2/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/володимира-сосюри-4fb5534.html" class="btn bo">Детально →</a>
+    <a href="https://proffice.com.ua/catalog/properties/p22022" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="">
+  <div class="cn">#55</div>
+  <div class="cs">прос.Берестейский<span class="tag">ремонт</span></div>
+  <div class="cm"></div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">436 м²</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">708$/м²</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">308 688 $</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">1/3 пов.</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:20%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">4/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/просберестейский-c09706a.html" class="btn bo">Детально →</a>
+    <a href="https://proffice.com.ua/catalog/properties/p18046" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="">
+  <div class="cn">#56</div>
+  <div class="cs">Нижній Вал</div>
+  <div class="cm"></div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">—</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/нижній-вал-aa3da06.html" class="btn bo">Детально →</a>
+    <a href="https://proffice.com.ua/catalog/properties/p21809" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="">
+  <div class="cn">#57</div>
+  <div class="cs">біля м. позняки але 4 поверх, проте варіант непоганий</div>
+  <div class="cm"></div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">—</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/біля-м-позняки-але-4-поверх-проте-варіан-a207e38.html" class="btn bo">Детально →</a>
+    <a href="https://www.aviso.ua/kyiv/zdam-dovhostrokovo-prymishchennia-vilnoho-pryznachennia-kyiv-darnytskyi-oleksandra-myshuhy-vul-1/17278029/" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="">
+  <div class="cn">#58</div>
+  <div class="cs">https://www.olx.ua/d/uk/obyavlenie/metro-olmpyska-ofs-540-m2</div>
+  <div class="cm"></div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">—</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/httpswwwolxuadukobyavleniemetro-olmpyska-1dfa58a.html" class="btn bo">Детально →</a>
+    <a href="https://www.olx.ua/d/uk/obyavlenie/metro-olmpyska-ofs-540-m2-bez-tsentr-pl-ukranskih-gerov-IDZVzVp.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="">
+  <div class="cn">#59</div>
+  <div class="cs">https://www.olx.ua/d/uk/obyavlenie/orenda-storichniy-tsentr-</div>
+  <div class="cm"></div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">—</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/httpswwwolxuadukobyavlenieorenda-storich-f65b0d7.html" class="btn bo">Детально →</a>
+    <a href="https://www.olx.ua/d/uk/obyavlenie/orenda-storichniy-tsentr-rininska-680m2-okremiy-vhd-IDZVK1N.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="">
+  <div class="cn">#60</div>
+  <div class="cs">https://www.olx.ua/d/uk/obyavlenie/bez-orenda-ofsno-budvl-z-</div>
+  <div class="cm"></div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">—</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/httpswwwolxuadukobyavleniebez-orenda-ofs-745d86d.html" class="btn bo">Детально →</a>
+    <a href="https://www.olx.ua/d/uk/obyavlenie/bez-orenda-ofsno-budvl-z-parkngom-na-pechersku-1550-kv-m-IDZZAoa.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="">
+  <div class="cn">#61</div>
+  <div class="cs">https://www.olx.ua/d/uk/obyavlenie/orenda-ofsno-budvl-750-kv</div>
+  <div class="cm"></div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">—</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/httpswwwolxuadukobyavlenieorenda-ofsno-b-0089166.html" class="btn bo">Детально →</a>
+    <a href="https://www.olx.ua/d/uk/obyavlenie/orenda-ofsno-budvl-750-kv-m-vul-zhilyanska-72a-metro-olmpyska-IDZbtcm.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="">
+  <div class="cn">#62</div>
+  <div class="cs">цікаво але дорого</div>
+  <div class="cm"></div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">—</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/цікаво-але-дорого-7781e78.html" class="btn bo">Детально →</a>
+    <a href="https://www.olx.ua/d/uk/obyavlenie/sdam-okremu-budvlyu-z-zakrioyu-tertoryu-shevchenkvskiy-r-n-IDXjQlM.html?search_reason=search%7Cpromoted" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="">
+  <div class="cn">#63</div>
+  <div class="cs">Сирець</div>
+  <div class="cm"></div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">—</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/сирець-fcf3a4d.html" class="btn bo">Детально →</a>
+    <a href="https://www.olx.ua/d/uk/obyavlenie/orenda-fasadnogo-ofsnogo-primschennya-kiv-sirets-515m2-shevchenkvskiy-IDZZe3R.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="">
+  <div class="cn">#64</div>
+  <div class="cs">печерск</div>
+  <div class="cm"></div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">—</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/печерск-128d716.html" class="btn bo">Детально →</a>
+    <a href="https://www.olx.ua/d/uk/obyavlenie/orenda-pechersk-400m2-ofs-z-remontom-IDZUNyE.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="">
+  <div class="cn">#65</div>
+  <div class="cs">м. Універсиет</div>
+  <div class="cm"></div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">—</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/м-універсиет-6ea3b78.html" class="btn bo">Детально →</a>
+    <a href="https://www.olx.ua/d/uk/obyavlenie/orenda-ofsu-1300-m2-m-unversitet-IDZUjGP.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="">
+  <div class="cn">#66</div>
+  <div class="cs">кардачі. магазин Бріллє</div>
+  <div class="cm"></div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">—</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/кардачі-магазин-бріллє-3f3c009.html" class="btn bo">Детально →</a>
+    <a href="https://www.olx.ua/d/uk/obyavlenie/orenda-primschennya-chokolovskiy-bulvar-1iy-poverh-IDRxkTf.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="">
+  <div class="cn">#67</div>
+  <div class="cs">900м2 без ремонту ЖК Smart House метро Берестейська</div>
+  <div class="cm"></div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">—</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/900м2-без-ремонту-жк-smart-house-метро-б-6828ce0.html" class="btn bo">Детально →</a>
+    <a href="https://www.olx.ua/d/uk/obyavlenie/orenda-fasad-rampa-900m2-bez-remontu-zhk-smart-house-metro-beresteyska-IDZujY3.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="">
+  <div class="cn">#68</div>
+  <div class="cs">м. Васильківська, весь поверх в Жк, але 2</div>
+  <div class="cm"></div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">—</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/м-васильківська-весь-поверх-в-жк-але-2-5cd10ab.html" class="btn bo">Детально →</a>
+    <a href="https://www.olx.ua/d/uk/obyavlenie/ofs-klnka-660-m2-metro-vasilkvska-vdng-golosvskiy-park-IDZVe4N.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="">
+  <div class="cn">#69</div>
+  <div class="cs">Оболонь</div>
+  <div class="cm"></div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">—</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/оболонь-e7a5536.html" class="btn bo">Детально →</a>
+    <a href="https://www.olx.ua/d/uk/obyavlenie/orenda-530-kv-m-fasad-1y-poverh-obolonskiy-rayon-zhk-berezhanskiy-IDZZgGI.html?isPreviewActive=0&search_reason=search%7Corganic&sliderIndex=0" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="">
+  <div class="cn">#70</div>
+  <div class="cs">Конвальця, печерс. 4 поверх але окремий вхід</div>
+  <div class="cm"></div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">—</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/конвальця-печерс-4-поверх-але-окремий-вх-7c37c61.html" class="btn bo">Детально →</a>
+    <a href="https://www.olx.ua/d/uk/obyavlenie/bez-arenda-pomescheniya-ofis-klinika-konovaltsa-32b-generator-IDZHUiI.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="">
+  <div class="cn">#71</div>
+  <div class="cs">Індустріальна</div>
+  <div class="cm"></div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">—</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/індустріальна-040c00d.html" class="btn bo">Детально →</a>
+    <a href="https://www.olx.ua/d/uk/obyavlenie/orenda-ofs-2-poverhi-710m2-ndustralniy-2-ukrittya-IDYdupN.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="">
+  <div class="cn">#72</div>
+  <div class="cs">Івана франка</div>
+  <div class="cm"></div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">—</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/івана-франка-696e5e0.html" class="btn bo">Детально →</a>
+    <a href="https://www.olx.ua/d/uk/obyavlenie/orenda-814m2-osz-fasad-ofs-franka-26-zolot-vorota-tsentr-parkomstsya-IDZAqlC.html?search_reason=search%7Corganic" target="_blank" class="btn ba">Оголошення ↗</a>
+  </div>
+</div>
+<div class="card" data-d="">
+  <div class="cn">#73</div>
+  <div class="cs">большие окна</div>
+  <div class="cm"></div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">—</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/большие-окна-69d24b5.html" class="btn bo">Детально →</a>
+    
+  </div>
+</div>
+<div class="card" data-d="">
+  <div class="cn">#74</div>
+  <div class="cs">бівшая клиника 2500 м</div>
+  <div class="cm"></div>
+  <div class="ps">
+    <div class="p"><div class="pl">Площа</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Загалом</div><div class="pv">—</div></div>
+    <div class="p"><div class="pl">Поверх</div><div class="pv">—</div></div>
+  </div>
+  <div class="br"><div class="bl">Обов'язкові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/11</div></div>
+  <div class="br"><div class="bl">Додаткові</div><div class="bw"><div class="bf" style="width:0%;background:#dc2626"></div></div><div class="bv" style="color:#dc2626">0/20</div></div>
+  
+  <div class="cf">
+    <a href="objects/бівшая-клиника-2500-м-153dadd.html" class="btn bo">Детально →</a>
+    
+  </div>
+</div></div></div><script>function fd(b,v){document.querySelectorAll(".fb").forEach(x=>x.classList.remove("on"));b.classList.add("on");document.querySelectorAll(".card").forEach(c=>{c.classList.toggle("hidden",v!=="all"&&c.dataset.d!==v);});}</script><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script></body></html>
