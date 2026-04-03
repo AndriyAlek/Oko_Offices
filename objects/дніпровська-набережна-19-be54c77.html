@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="uk"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Дніпровська набережна, 19 · Оренда офісу</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/><style>
+:root{
+  --bg:#f8f9fc;--s:#ffffff;--b:#e5e7ef;--b2:#d1d5e0;
+  --acc:#2563eb;--acc2:#0ea5e9;--txt:#1a1d2e;--mut:#6b7280;
+  --good:#16a34a;--warn:#d97706;--bad:#dc2626;
+  --acc-bg:#eff6ff;--good-bg:#f0fdf4;--bad-bg:#fef2f2;
+}
+*{box-sizing:border-box;margin:0;padding:0}html,body{height:100%}
+body{background:var(--bg);color:var(--txt);font-family:system-ui,-apple-system,sans-serif;font-size:14px;line-height:1.5}
+a{color:var(--acc);text-decoration:none}a:hover{text-decoration:underline}
+nav{background:var(--s);border-bottom:1px solid var(--b);padding:12px 28px;display:flex;align-items:center;gap:6px;position:sticky;top:0;z-index:99;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.logo{font-weight:800;font-size:13px;color:var(--acc);margin-right:12px;letter-spacing:-.02em}
+nav a{font-size:13px;color:var(--mut);font-weight:500;padding:6px 12px;border-radius:6px}
+nav a:hover,nav a.on{background:var(--acc-bg);color:var(--acc);text-decoration:none}
+.wrap{max-width:1440px;margin:0 auto;padding:28px 24px}
+h1{font-size:20px;font-weight:800;margin-bottom:4px;letter-spacing:-.03em}
+.sub{color:var(--mut);font-size:13px;margin-bottom:22px}
+.filters{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap}
+.fb{padding:5px 13px;font-size:12px;font-weight:600;background:var(--s);border:1px solid var(--b);color:var(--mut);cursor:pointer;border-radius:20px;transition:all .15s}
+.fb.on,.fb:hover{border-color:var(--acc);color:var(--acc);background:var(--acc-bg)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.card{background:var(--s);border:1px solid var(--b);border-radius:10px;padding:18px;position:relative;transition:box-shadow .15s,border-color .15s;display:flex;flex-direction:column}
+.card:hover{box-shadow:0 4px 16px rgba(0,0,0,.08);border-color:var(--acc)}
+.card.hidden{display:none}
+.cn{position:absolute;top:12px;right:14px;font-size:10px;font-weight:700;color:var(--mut);background:var(--bg);padding:2px 7px;border-radius:10px;border:1px solid var(--b)}
+.cs{font-size:14px;font-weight:700;margin-bottom:3px;padding-right:42px;line-height:1.3}
+.cm{font-size:11px;color:var(--mut);margin-bottom:14px}
+.ps{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:14px}
+.p{background:var(--bg);padding:8px 10px;border-radius:6px;border:1px solid var(--b)}
+.pl{font-size:10px;color:var(--mut);margin-bottom:1px;font-weight:500}
+.pv{font-size:13px;font-weight:700}
+.br{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.bl{font-size:11px;color:var(--mut);width:110px;flex-shrink:0}
+.bw{flex:1;height:6px;background:var(--b);border-radius:3px;overflow:hidden}
+.bf{height:100%;border-radius:3px;transition:width .4s}
+.bv{font-size:11px;font-weight:700;width:40px;text-align:right;flex-shrink:0}
+.cf{display:flex;gap:8px;margin-top:auto;padding-top:14px;border-top:1px solid var(--b)}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:7px 14px;font-size:12px;font-weight:600;cursor:pointer;border-radius:6px;border:none;transition:all .15s;white-space:nowrap;text-decoration:none}
+.bo{background:var(--bg);border:1px solid var(--b);color:var(--mut)}.bo:hover{border-color:var(--acc);color:var(--acc);text-decoration:none}
+.ba{background:var(--acc);color:#fff}.ba:hover{background:#1d4ed8;text-decoration:none}
+/* Detail */
+.dh{background:var(--s);border:1px solid var(--b);border-radius:10px;padding:26px;margin-bottom:20px;border-left:4px solid var(--acc)}
+.dt{font-size:20px;font-weight:800;margin-bottom:3px;letter-spacing:-.03em}
+.ds{color:var(--mut);font-size:13px;margin-bottom:18px}
+.dp{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-bottom:18px}
+.db{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:680px){.db{grid-template-columns:1fr}}
+.sec{background:var(--s);border:1px solid var(--b);border-radius:10px;padding:20px}
+.st{font-size:11px;font-weight:700;color:var(--acc);letter-spacing:.05em;margin-bottom:14px;text-transform:uppercase}
+.ck{display:flex;flex-direction:column}
+.ci{display:flex;align-items:flex-start;gap:8px;font-size:13px;padding:7px 0;border-bottom:1px solid var(--b)}
+.ci:last-child{border-bottom:none}
+.cii{font-size:14px;width:20px;text-align:center;flex-shrink:0;margin-top:1px}
+.cy{color:var(--good)}.cn2{color:var(--bad)}
+.ci-text{flex:1}
+.ci-note{font-size:11px;color:var(--mut);margin-top:2px;background:var(--bg);padding:2px 7px;border-radius:4px;display:inline-block}
+.cmt{background:#fefce8;border-left:3px solid #eab308;padding:10px 14px;font-size:13px;margin-top:14px;border-radius:0 6px 6px 0}
+.back{display:inline-flex;align-items:center;gap:5px;font-size:13px;color:var(--mut);margin-bottom:18px;padding:6px 12px;border-radius:6px;border:1px solid var(--b);background:var(--s)}
+.back:hover{color:var(--acc);text-decoration:none;border-color:var(--acc)}
+/* Compare */
+.tw{overflow-x:auto;border:1px solid var(--b);border-radius:10px}
+table{width:100%;border-collapse:collapse;font-size:12px;min-width:600px}
+thead tr{border-bottom:2px solid var(--b)}
+th{padding:10px 12px;text-align:left;font-size:10px;color:var(--mut);font-weight:700;letter-spacing:.05em;white-space:nowrap;background:var(--bg)}
+td{padding:8px 12px;border-bottom:1px solid var(--b);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#f9fafb}
+.rl{color:var(--mut);font-size:11px;min-width:170px;font-weight:500}
+.tok{color:var(--good);font-weight:700}.tno{color:var(--bad)}
+.tn{font-size:11px;color:var(--acc);font-weight:700;max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sh td{font-size:10px;font-weight:700;color:var(--acc);letter-spacing:.06em;background:var(--acc-bg);padding:8px 12px;text-transform:uppercase}
+/* Map */
+#map{width:100%;height:calc(100vh - 57px)}
+.tag{display:inline-block;padding:2px 8px;font-size:10px;font-weight:600;border-radius:10px;background:var(--acc-bg);color:var(--acc);margin-left:6px}
+</style></head><body><nav><span class="logo">🏢 Оренда офісу</span><a href="../index.html" class="">🏠 Всі об'єкти</a><a href="../compare.html" class="">📊 Порівняння</a><a href="../map.html" class="">🗺 Карта</a><a href="../favorites.html" class="">❤️ Обрані<span id="fav-count"></span></a></nav>
+<div class="wrap">
+  <a href="../index.html" class="back">← Всі об'єкти</a>
+  <div class="dh">
+    <div class="dt">Дніпровська набережна, 19</div>
+    <div class="ds">Дарницький · Позняки · об'єкт #40</div>
+    <div class="dp">
+  <div class="p"><div class="pl">Площа</div><div class="pv">500 м²</div></div>
+  <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
+  <div class="p"><div class="pl">Загальна вартість</div><div class="pv">—</div></div>
+  <div class="p"><div class="pl">Поверх</div><div class="pv">—</div></div>
+  <div class="p"><div class="pl">Планування</div><div class="pv">—</div></div>
+  <div class="p"><div class="pl">Район</div><div class="pv">Дарницький</div></div>
+  <div class="p"><div class="pl">Зона/метро</div><div class="pv">Зона 3 (Позняки)</div></div>
+  <div class="p"><div class="pl">Мікрорайон</div><div class="pv">Позняки</div></div>
+</div>
+    <div style="display:flex;gap:16px;margin-bottom:10px;font-size:13px">
+      <span style="color:var(--mut)">Обов'язкові: <b style="color:#dc2626">4/11</b></span>
+      <span style="color:var(--mut)">Додаткові: <b style="color:#dc2626">6/20</b></span>
+    </div>
+    <div class="cmt">💬 Здається комерційне приміщення на наб. Дніпровська 19, площа 500 кв.м • ID 33445476</div>
+    <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+      <a href="https://dom.ria.com/uk/realty-dolgosrochnaya-arenda-kommercheskoe-pomeschenie-kiev-poznyaki-dneprovskaya-naberejnaya-33445476.html?r_audience=smo&r_source=whatsapp&r_medium=share&r_campaign=ads_secondary" target="_blank" class="btn ba">Відкрити оголошення ↗</a>
+      <a href="../map.html#дніпровська-набережна-19-be54c77" class="btn bo">🗺 На карті</a>
+      <a href="../compare.html" class="btn bo">📊 Порівняння</a>
+    </div>
+  </div>
+  <div id="photos"></div>
+  <div class="db">
+    <div class="sec"><div class="st">Обов'язкові вимоги (4/11)</div><div class="ck"><div class="ci"><span class="cii cy">✓</span><div class="ci-text">Прямий контакт з власником<div class="ci-note">3</div></div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Офіційний договір</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Договір мін. 5 років</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Дозвіл на перепланування</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Архіт.-планув. вимоги</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Площа від 400 м²</div></div><div class="ci"><span class="cii cy">✓</span><div class="ci-text">Окремий вхід<div class="ci-note">500 м²</div></div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Холл при вході</div></div><div class="ci"><span class="cii cy">✓</span><div class="ci-text">Коридорна система<div class="ci-note">Хол</div></div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Висота стель 3.5м+</div></div><div class="ci"><span class="cii cy">✓</span><div class="ci-text">Ширина коридорів 1.5м+<div class="ci-note">0 m</div></div></div></div></div>
+    <div class="sec"><div class="st">Додаткові параметри (6/20)</div><div class="ck"><div class="ci"><span class="cii cy">✓</span><div class="ci-text">Плани з розмірами<div class="ci-note">3</div></div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Фото приміщення</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Мед. діяльність раніше</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Операційна</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Кілька поверхів</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Вивіска на фасаді</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Власний паркінг</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Централізована вентиляція</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Кондиціонування</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Вхідна потужність</div></div><div class="ci"><span class="cii cy">✓</span><div class="ci-text">Система опалення<div class="ci-note">150 кВт</div></div></div><div class="ci"><span class="cii cy">✓</span><div class="ci-text">Генератор<div class="ci-note">індивідуальне електричне  •  без опалення</div></div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Місце для генератора</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Договори комунальних</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Електрика</div></div><div class="ci"><span class="cii cy">✓</span><div class="ci-text">Опалення<div class="ci-note">Є електропостачання</div></div></div><div class="ci"><span class="cii cy">✓</span><div class="ci-text">Водопостачання<div class="ci-note">індивідуальне електричне  •  без опалення</div></div></div><div class="ci"><span class="cii cy">✓</span><div class="ci-text">Вивіз сміття<div class="ci-note">немає</div></div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Техн. персонал</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Підвал / укриття</div></div></div></div>
+  </div>
+</div><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script>
+const FAV_KEY='fav_v1';
+function getFavs(){try{return JSON.parse(localStorage.getItem(FAV_KEY)||'[]')}catch(e){return[]}}
+function setFavs(a){try{localStorage.setItem(FAV_KEY,JSON.stringify(a))}catch(e){}}
+function isFav(id){return getFavs().includes(id)}
+function toggleFav(id,btn){
+  var f=getFavs(),i=f.indexOf(id);
+  if(i===-1){f.push(id);btn.classList.add('fav-on');btn.title='Видалити з обраних';}
+  else{f.splice(i,1);btn.classList.remove('fav-on');btn.title='Додати в обрані';}
+  setFavs(f);
+  var c=document.getElementById('fav-count');if(c){var n=getFavs().length;c.textContent=n?n:'';}
+  // оновити картку у фільтрі улюблених
+  if(typeof applyFilter==='function') applyFilter();
+}
+function initFavBtns(){
+  document.querySelectorAll('.fav-btn').forEach(function(btn){
+    if(isFav(btn.dataset.id)){btn.classList.add('fav-on');btn.title='Видалити з обраних';}
+    else btn.title='Додати в обрані';
+  });
+  var c=document.getElementById('fav-count');
+  if(c){var n=getFavs().length;c.textContent=n?n:'';}
+}
+document.addEventListener('DOMContentLoaded',initFavBtns);
+</script>
+<style>
+.fav-btn{background:none;border:none;cursor:pointer;font-size:18px;line-height:1;padding:3px 5px;color:#d1d5e0;transition:transform .15s,color .15s;flex-shrink:0}
+.fav-btn:hover{transform:scale(1.25)}
+.fav-btn.fav-on{color:#ef4444}
+#fav-count:empty{display:none}
+#fav-count{display:inline-block;font-size:10px;background:#ef4444;color:#fff;border-radius:8px;padding:1px 5px;margin-left:2px;vertical-align:middle;min-width:16px;text-align:center}
+</style></body></html>

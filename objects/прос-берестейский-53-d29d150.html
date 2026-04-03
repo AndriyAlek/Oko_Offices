@@ -76,7 +76,7 @@ tr:hover td{background:#f9fafb}
 /* Map */
 #map{width:100%;height:calc(100vh - 57px)}
 .tag{display:inline-block;padding:2px 8px;font-size:10px;font-weight:600;border-radius:10px;background:var(--acc-bg);color:var(--acc);margin-left:6px}
-</style></head><body><nav><span class="logo">🏢 Оренда офісу</span><a href="../index.html" class="">🏠 Всі об'єкти</a><a href="../compare.html" class="">📊 Порівняння</a><a href="../map.html" class="">🗺 Карта</a></nav>
+</style></head><body><nav><span class="logo">🏢 Оренда офісу</span><a href="../index.html" class="">🏠 Всі об'єкти</a><a href="../compare.html" class="">📊 Порівняння</a><a href="../map.html" class="">🗺 Карта</a><a href="../favorites.html" class="">❤️ Обрані<span id="fav-count"></span></a></nav>
 <div class="wrap">
   <a href="../index.html" class="back">← Всі об'єкти</a>
   <div class="dh">
@@ -85,15 +85,15 @@ tr:hover td{background:#f9fafb}
     <div class="dp">
   <div class="p"><div class="pl">Площа</div><div class="pv">420 м²</div></div>
   <div class="p"><div class="pl">Ціна/м²</div><div class="pv">—</div></div>
-  <div class="p"><div class="pl">Загальна вартість</div><div class="pv">399 840 $</div></div>
-  <div class="p"><div class="pl">Поверх</div><div class="pv">?/? пов.</div></div>
+  <div class="p"><div class="pl">Загальна вартість</div><div class="pv">—</div></div>
+  <div class="p"><div class="pl">Поверх</div><div class="pv">—</div></div>
   <div class="p"><div class="pl">Планування</div><div class="pv">опен</div></div>
   <div class="p"><div class="pl">Район</div><div class="pv">Солом'янський</div></div>
   <div class="p"><div class="pl">Зона/метро</div><div class="pv">м. Берестейська</div></div>
   <div class="p"><div class="pl">Мікрорайон</div><div class="pv">Берестейська / Шулявка</div></div>
 </div>
     <div style="display:flex;gap:16px;margin-bottom:10px;font-size:13px">
-      <span style="color:var(--mut)">Обов'язкові: <b style="color:#dc2626">1/11</b></span>
+      <span style="color:var(--mut)">Обов'язкові: <b style="color:#dc2626">0/11</b></span>
       <span style="color:var(--mut)">Додаткові: <b style="color:#dc2626">0/20</b></span>
     </div>
     
@@ -103,58 +103,9 @@ tr:hover td{background:#f9fafb}
       <a href="../compare.html" class="btn bo">📊 Порівняння</a>
     </div>
   </div>
-  <div id="photos">
-
-<style>
-.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:20px 0}
-.gallery img{width:100%;height:180px;object-fit:cover;cursor:pointer;transition:opacity .2s;border:1px solid var(--b,#1e2432)}
-.gallery img:hover{opacity:.85}
-.lightbox{display:none;position:fixed;inset:0;background:#000c;z-index:999;align-items:center;justify-content:center}
-.lightbox.on{display:flex}
-.lightbox img{max-width:90vw;max-height:90vh;object-fit:contain}
-.lb-close{position:absolute;top:16px;right:20px;color:#fff;font-size:28px;cursor:pointer;line-height:1}
-.lb-prev,.lb-next{position:absolute;top:50%;transform:translateY(-50%);color:#fff;font-size:36px;cursor:pointer;padding:10px;user-select:none}
-.lb-prev{left:10px}.lb-next{right:10px}
-</style>
-
-<div class="sec" style="margin-bottom:18px">
-  <div class="st">ФОТО ПРИМІЩЕННЯ (3 фото)</div>
-  <div class="gallery"><img src="../images/прос-берестейский-53-d29d150/photo_01.png" data-full="../images/прос-берестейский-53-d29d150/photo_01.png" alt="Фото 1" loading="lazy">
-<img src="../images/прос-берестейский-53-d29d150/photo_02.jpg" data-full="../images/прос-берестейский-53-d29d150/photo_02.jpg" alt="Фото 2" loading="lazy">
-<img src="../images/прос-берестейский-53-d29d150/photo_03.png" data-full="../images/прос-берестейский-53-d29d150/photo_03.png" alt="Фото 3" loading="lazy"></div>
-</div>
-<div class="lightbox">
-  <span class="lb-close">✕</span>
-  <span class="lb-prev">‹</span>
-  <img src="" alt="">
-  <span class="lb-next">›</span>
-</div>
-
-<script>
-(function(){
-  const imgs = Array.from(document.querySelectorAll('.gallery img'));
-  if(!imgs.length) return;
-  const lb = document.querySelector('.lightbox');
-  const lbImg = lb.querySelector('img');
-  let cur = 0;
-  function show(i){ cur=i; lbImg.src=imgs[i].dataset.full||imgs[i].src; lb.classList.add('on'); }
-  imgs.forEach((img,i)=>img.addEventListener('click',()=>show(i)));
-  lb.querySelector('.lb-close').addEventListener('click',()=>lb.classList.remove('on'));
-  lb.querySelector('.lb-prev').addEventListener('click',()=>show((cur-1+imgs.length)%imgs.length));
-  lb.querySelector('.lb-next').addEventListener('click',()=>show((cur+1)%imgs.length));
-  lb.addEventListener('click',e=>{ if(e.target===lb) lb.classList.remove('on'); });
-  document.addEventListener('keydown',e=>{
-    if(!lb.classList.contains('on')) return;
-    if(e.key==='ArrowLeft') show((cur-1+imgs.length)%imgs.length);
-    if(e.key==='ArrowRight') show((cur+1)%imgs.length);
-    if(e.key==='Escape') lb.classList.remove('on');
-  });
-})();
-</script>
-
-</div>
+  <div id="photos"></div>
   <div class="db">
-    <div class="sec"><div class="st">Обов'язкові вимоги (1/11)</div><div class="ck"><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Прямий контакт з власником</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Офіційний договір</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Договір мін. 5 років</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Дозвіл на перепланування</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Архіт.-планув. вимоги</div></div><div class="ci"><span class="cii cy">✓</span><div class="ci-text">Площа від 400 м²</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Окремий вхід</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Холл при вході</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Коридорна система</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Висота стель 3.5м+</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Ширина коридорів 1.5м+</div></div></div></div>
+    <div class="sec"><div class="st">Обов'язкові вимоги (0/11)</div><div class="ck"><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Прямий контакт з власником</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Офіційний договір</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Договір мін. 5 років</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Дозвіл на перепланування</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Архіт.-планув. вимоги</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Площа від 400 м²</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Окремий вхід</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Холл при вході</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Коридорна система</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Висота стель 3.5м+</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Ширина коридорів 1.5м+</div></div></div></div>
     <div class="sec"><div class="st">Додаткові параметри (0/20)</div><div class="ck"><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Плани з розмірами</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Фото приміщення</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Мед. діяльність раніше</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Операційна</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Кілька поверхів</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Вивіска на фасаді</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Власний паркінг</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Централізована вентиляція</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Кондиціонування</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Вхідна потужність</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Система опалення</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Генератор</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Місце для генератора</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Договори комунальних</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Електрика</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Опалення</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Водопостачання</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Вивіз сміття</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Техн. персонал</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Підвал / укриття</div></div></div></div>
   </div>
 </div><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script></body></html>
