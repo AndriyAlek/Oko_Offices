@@ -170,7 +170,73 @@ tr:hover td{background:#f9fafb}
 </script>
 
 </div>
-  <div class="db">
+  
+
+<style>
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:20px 0}
+.gallery img{width:100%;height:180px;object-fit:cover;cursor:pointer;transition:opacity .2s;border:1px solid var(--b,#1e2432)}
+.gallery img:hover{opacity:.85}
+.lightbox{display:none;position:fixed;inset:0;background:#000c;z-index:999;align-items:center;justify-content:center}
+.lightbox.on{display:flex}
+.lightbox img{max-width:90vw;max-height:90vh;object-fit:contain}
+.lb-close{position:absolute;top:16px;right:20px;color:#fff;font-size:28px;cursor:pointer;line-height:1}
+.lb-prev,.lb-next{position:absolute;top:50%;transform:translateY(-50%);color:#fff;font-size:36px;cursor:pointer;padding:10px;user-select:none}
+.lb-prev{left:10px}.lb-next{right:10px}
+</style>
+
+<div class="sec" style="margin-bottom:18px">
+  <div class="st">ФОТО ПРИМІЩЕННЯ (20 фото)</div>
+  <div class="gallery"><img src="../images/київ-вул-миколи-голего-7-f737865/photo_01.jpg" data-full="../images/київ-вул-миколи-голего-7-f737865/photo_01.jpg" alt="Фото 1" loading="lazy">
+<img src="../images/київ-вул-миколи-голего-7-f737865/photo_02.jpg" data-full="../images/київ-вул-миколи-голего-7-f737865/photo_02.jpg" alt="Фото 2" loading="lazy">
+<img src="../images/київ-вул-миколи-голего-7-f737865/photo_03.jpg" data-full="../images/київ-вул-миколи-голего-7-f737865/photo_03.jpg" alt="Фото 3" loading="lazy">
+<img src="../images/київ-вул-миколи-голего-7-f737865/photo_04.jpg" data-full="../images/київ-вул-миколи-голего-7-f737865/photo_04.jpg" alt="Фото 4" loading="lazy">
+<img src="../images/київ-вул-миколи-голего-7-f737865/photo_05.jpg" data-full="../images/київ-вул-миколи-голего-7-f737865/photo_05.jpg" alt="Фото 5" loading="lazy">
+<img src="../images/київ-вул-миколи-голего-7-f737865/photo_06.jpg" data-full="../images/київ-вул-миколи-голего-7-f737865/photo_06.jpg" alt="Фото 6" loading="lazy">
+<img src="../images/київ-вул-миколи-голего-7-f737865/photo_07.jpg" data-full="../images/київ-вул-миколи-голего-7-f737865/photo_07.jpg" alt="Фото 7" loading="lazy">
+<img src="../images/київ-вул-миколи-голего-7-f737865/photo_08.jpg" data-full="../images/київ-вул-миколи-голего-7-f737865/photo_08.jpg" alt="Фото 8" loading="lazy">
+<img src="../images/київ-вул-миколи-голего-7-f737865/photo_09.jpg" data-full="../images/київ-вул-миколи-голего-7-f737865/photo_09.jpg" alt="Фото 9" loading="lazy">
+<img src="../images/київ-вул-миколи-голего-7-f737865/photo_10.jpg" data-full="../images/київ-вул-миколи-голего-7-f737865/photo_10.jpg" alt="Фото 10" loading="lazy">
+<img src="../images/київ-вул-миколи-голего-7-f737865/photo_11.jpg" data-full="../images/київ-вул-миколи-голего-7-f737865/photo_11.jpg" alt="Фото 11" loading="lazy">
+<img src="../images/київ-вул-миколи-голего-7-f737865/photo_12.jpg" data-full="../images/київ-вул-миколи-голего-7-f737865/photo_12.jpg" alt="Фото 12" loading="lazy">
+<img src="../images/київ-вул-миколи-голего-7-f737865/photo_13.jpg" data-full="../images/київ-вул-миколи-голего-7-f737865/photo_13.jpg" alt="Фото 13" loading="lazy">
+<img src="../images/київ-вул-миколи-голего-7-f737865/photo_14.jpg" data-full="../images/київ-вул-миколи-голего-7-f737865/photo_14.jpg" alt="Фото 14" loading="lazy">
+<img src="../images/київ-вул-миколи-голего-7-f737865/photo_15.jpg" data-full="../images/київ-вул-миколи-голего-7-f737865/photo_15.jpg" alt="Фото 15" loading="lazy">
+<img src="../images/київ-вул-миколи-голего-7-f737865/photo_16.jpg" data-full="../images/київ-вул-миколи-голего-7-f737865/photo_16.jpg" alt="Фото 16" loading="lazy">
+<img src="../images/київ-вул-миколи-голего-7-f737865/photo_17.jpg" data-full="../images/київ-вул-миколи-голего-7-f737865/photo_17.jpg" alt="Фото 17" loading="lazy">
+<img src="../images/київ-вул-миколи-голего-7-f737865/photo_18.jpg" data-full="../images/київ-вул-миколи-голего-7-f737865/photo_18.jpg" alt="Фото 18" loading="lazy">
+<img src="../images/київ-вул-миколи-голего-7-f737865/photo_19.jpg" data-full="../images/київ-вул-миколи-голего-7-f737865/photo_19.jpg" alt="Фото 19" loading="lazy">
+<img src="../images/київ-вул-миколи-голего-7-f737865/photo_20.jpg" data-full="../images/київ-вул-миколи-голего-7-f737865/photo_20.jpg" alt="Фото 20" loading="lazy"></div>
+</div>
+<div class="lightbox">
+  <span class="lb-close">✕</span>
+  <span class="lb-prev">‹</span>
+  <img src="" alt="">
+  <span class="lb-next">›</span>
+</div>
+
+<script>
+(function(){
+  const imgs = Array.from(document.querySelectorAll('.gallery img'));
+  if(!imgs.length) return;
+  const lb = document.querySelector('.lightbox');
+  const lbImg = lb.querySelector('img');
+  let cur = 0;
+  function show(i){ cur=i; lbImg.src=imgs[i].dataset.full||imgs[i].src; lb.classList.add('on'); }
+  imgs.forEach((img,i)=>img.addEventListener('click',()=>show(i)));
+  lb.querySelector('.lb-close').addEventListener('click',()=>lb.classList.remove('on'));
+  lb.querySelector('.lb-prev').addEventListener('click',()=>show((cur-1+imgs.length)%imgs.length));
+  lb.querySelector('.lb-next').addEventListener('click',()=>show((cur+1)%imgs.length));
+  lb.addEventListener('click',e=>{ if(e.target===lb) lb.classList.remove('on'); });
+  document.addEventListener('keydown',e=>{
+    if(!lb.classList.contains('on')) return;
+    if(e.key==='ArrowLeft') show((cur-1+imgs.length)%imgs.length);
+    if(e.key==='ArrowRight') show((cur+1)%imgs.length);
+    if(e.key==='Escape') lb.classList.remove('on');
+  });
+})();
+</script>
+
+<div class="db">
     <div class="sec"><div class="st">Обов'язкові вимоги (4/11)</div><div class="ck"><div class="ci"><span class="cii cy">✓</span><div class="ci-text">Прямий контакт з власником<div class="ci-note">3</div></div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Офіційний договір</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Договір мін. 5 років</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Дозвіл на перепланування</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Архіт.-планув. вимоги</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Площа від 400 м²</div></div><div class="ci"><span class="cii cy">✓</span><div class="ci-text">Окремий вхід<div class="ci-note">537 м²</div></div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Холл при вході</div></div><div class="ci"><span class="cii cy">✓</span><div class="ci-text">Коридорна система<div class="ci-note">Рецепція</div></div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Висота стель 3.5м+</div></div><div class="ci"><span class="cii cy">✓</span><div class="ci-text">Ширина коридорів 1.5м+<div class="ci-note">0 m</div></div></div></div></div>
     <div class="sec"><div class="st">Додаткові параметри (6/20)</div><div class="ck"><div class="ci"><span class="cii cy">✓</span><div class="ci-text">Плани з розмірами<div class="ci-note">3</div></div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Фото приміщення</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Мед. діяльність раніше</div></div><div class="ci"><span class="cii cy">✓</span><div class="ci-text">Операційна<div class="ci-note">Медичне призначення</div></div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Кілька поверхів</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Вивіска на фасаді</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Власний паркінг</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Централізована вентиляція</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Кондиціонування</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Вхідна потужність</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Система опалення</div></div><div class="ci"><span class="cii cy">✓</span><div class="ci-text">Генератор<div class="ci-note">централізоване</div></div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Місце для генератора</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Договори комунальних</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Електрика</div></div><div class="ci"><span class="cii cy">✓</span><div class="ci-text">Опалення<div class="ci-note">Є електропостачання</div></div></div><div class="ci"><span class="cii cy">✓</span><div class="ci-text">Водопостачання<div class="ci-note">централізоване</div></div></div><div class="ci"><span class="cii cy">✓</span><div class="ci-text">Вивіз сміття<div class="ci-note">централізований</div></div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Техн. персонал</div></div><div class="ci"><span class="cii cn2">✗</span><div class="ci-text">Підвал / укриття</div></div></div></div>
   </div>
